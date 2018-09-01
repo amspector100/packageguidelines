@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Package Development in R</title>
+  <meta name="description" content="This guide walks through the process of developing R package">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Package Development in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This guide walks through the process of developing R package" />
+  <meta name="github-repo" content="amspector100/packageguidelines" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Package Development in R" />
+  
+  <meta name="twitter:description" content="This guide walks through the process of developing R package" />
+  
+
+<meta name="author" content="Asher Spector">
+
+
+<meta name="date" content="2018-08-31">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="development-with-rstudio.html">
+<link rel="next" href="package-structure.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-a-package"><i class="fa fa-check"></i><b>1.1</b> What is a package?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#table-of-contents"><i class="fa fa-check"></i><b>1.2</b> Table of Contents</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#what-do-i-need-to-know-before-reading-this-guide"><i class="fa fa-check"></i><b>1.3</b> What do I need to know before reading this guide?</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#major-acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Major Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html"><i class="fa fa-check"></i><b>2</b> Development with RStudio</a><ul>
+<li class="chapter" data-level="2.1" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#why-use-rstudio"><i class="fa fa-check"></i><b>2.1</b> Why use RStudio?</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#what-if-you-dont-want-to-use-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> What if you don’t want to use RStudio?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#setting-up-rstudio"><i class="fa fa-check"></i><b>2.2</b> Setting up RStudio</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#setting-up-r"><i class="fa fa-check"></i><b>2.2.1</b> Setting up R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#downloading-development-tools"><i class="fa fa-check"></i><b>2.2.2</b> Downloading Development Tools</a></li>
+<li class="chapter" data-level="2.2.3" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#setting-up-rstudio-1"><i class="fa fa-check"></i><b>2.2.3</b> Setting up RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#basic-rstudio-use"><i class="fa fa-check"></i><b>2.3</b> Basic RStudio Use</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#screen-breakdown"><i class="fa fa-check"></i><b>2.3.1</b> Screen Breakdown</a></li>
+<li class="chapter" data-level="2.3.2" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#basic-commands"><i class="fa fa-check"></i><b>2.3.2</b> Basic Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#further-readingsources-cited"><i class="fa fa-check"></i><b>2.4</b> Further Reading/Sources Cited</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="github.html"><a href="github.html"><i class="fa fa-check"></i><b>3</b> GitHub</a><ul>
+<li class="chapter" data-level="3.1" data-path="github.html"><a href="github.html#why-use-gitgithub"><i class="fa fa-check"></i><b>3.1</b> Why use Git/GitHub?</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="github.html"><a href="github.html#what-is-git"><i class="fa fa-check"></i><b>3.1.1</b> What is Git?</a></li>
+<li class="chapter" data-level="3.1.2" data-path="github.html"><a href="github.html#what-is-github"><i class="fa fa-check"></i><b>3.1.2</b> What is GitHub?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="github.html"><a href="github.html#setting-up-gitgithub"><i class="fa fa-check"></i><b>3.2</b> Setting up Git/GitHub</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="github.html"><a href="github.html#making-a-github-account"><i class="fa fa-check"></i><b>3.2.1</b> Making a GitHub account</a></li>
+<li class="chapter" data-level="3.2.2" data-path="github.html"><a href="github.html#how-to-install-and-set-up-git"><i class="fa fa-check"></i><b>3.2.2</b> How to Install and Set Up Git</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="github.html"><a href="github.html#starting-to-use-gitgithub"><i class="fa fa-check"></i><b>3.3</b> Starting to use Git/GitHub</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="github.html"><a href="github.html#creating-projects-and-repositories"><i class="fa fa-check"></i><b>3.3.1</b> Creating Projects and Repositories</a></li>
+<li class="chapter" data-level="3.3.2" data-path="github.html"><a href="github.html#modifying-projects"><i class="fa fa-check"></i><b>3.3.2</b> Modifying Projects</a></li>
+<li class="chapter" data-level="3.3.3" data-path="github.html"><a href="github.html#accessing-older-versions-of-code"><i class="fa fa-check"></i><b>3.3.3</b> Accessing older versions of code</a></li>
+<li class="chapter" data-level="3.3.4" data-path="github.html"><a href="github.html#the-.gitignore-file"><i class="fa fa-check"></i><b>3.3.4</b> The .gitignore file</a></li>
+<li class="chapter" data-level="3.3.5" data-path="github.html"><a href="github.html#branching"><i class="fa fa-check"></i><b>3.3.5</b> Branching</a></li>
+<li class="chapter" data-level="3.3.6" data-path="github.html"><a href="github.html#conflicts"><i class="fa fa-check"></i><b>3.3.6</b> Conflicts</a></li>
+<li class="chapter" data-level="3.3.7" data-path="github.html"><a href="github.html#tips-and-tricks"><i class="fa fa-check"></i><b>3.3.7</b> Tips and Tricks</a></li>
+<li class="chapter" data-level="3.3.8" data-path="github.html"><a href="github.html#cheat-sheats"><i class="fa fa-check"></i><b>3.3.8</b> Cheat sheats</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="github.html"><a href="github.html#further-reading"><i class="fa fa-check"></i><b>3.4</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="package-structure.html"><a href="package-structure.html"><i class="fa fa-check"></i><b>4</b> Package Structure</a><ul>
+<li class="chapter" data-level="4.1" data-path="package-structure.html"><a href="package-structure.html#motivation"><i class="fa fa-check"></i><b>4.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.2" data-path="package-structure.html"><a href="package-structure.html#solutions"><i class="fa fa-check"></i><b>4.2</b> Solutions</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="package-structure.html"><a href="package-structure.html#code-style"><i class="fa fa-check"></i><b>4.2.1</b> Code Style</a></li>
+<li class="chapter" data-level="4.2.2" data-path="package-structure.html"><a href="package-structure.html#documentation"><i class="fa fa-check"></i><b>4.2.2</b> Documentation</a></li>
+<li class="chapter" data-level="4.2.3" data-path="package-structure.html"><a href="package-structure.html#description"><i class="fa fa-check"></i><b>4.2.3</b> Description</a></li>
+<li class="chapter" data-level="4.2.4" data-path="package-structure.html"><a href="package-structure.html#namespace"><i class="fa fa-check"></i><b>4.2.4</b> Namespace</a></li>
+<li class="chapter" data-level="4.2.5" data-path="package-structure.html"><a href="package-structure.html#the-readme"><i class="fa fa-check"></i><b>4.2.5</b> The README</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="package-structure.html"><a href="package-structure.html#the-walkthrough"><i class="fa fa-check"></i><b>4.3</b> The Walkthrough</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="package-structure.html"><a href="package-structure.html#initializing-the-package"><i class="fa fa-check"></i><b>4.3.1</b> Initializing the Package</a></li>
+<li class="chapter" data-level="4.3.2" data-path="package-structure.html"><a href="package-structure.html#modifying-the-description-file"><i class="fa fa-check"></i><b>4.3.2</b> Modifying the DESCRIPTION File</a></li>
+<li class="chapter" data-level="4.3.3" data-path="package-structure.html"><a href="package-structure.html#starting-to-program"><i class="fa fa-check"></i><b>4.3.3</b> Starting to Program</a></li>
+<li class="chapter" data-level="4.3.4" data-path="package-structure.html"><a href="package-structure.html#warnings-and-simplicity"><i class="fa fa-check"></i><b>4.3.4</b> Warnings and Simplicity</a></li>
+<li class="chapter" data-level="4.3.5" data-path="package-structure.html"><a href="package-structure.html#documenting-your-package"><i class="fa fa-check"></i><b>4.3.5</b> Documenting your package</a></li>
+<li class="chapter" data-level="4.3.6" data-path="package-structure.html"><a href="package-structure.html#optional-adding-and-documenting-data"><i class="fa fa-check"></i><b>4.3.6</b> (Optional): Adding and Documenting Data</a></li>
+<li class="chapter" data-level="4.3.7" data-path="package-structure.html"><a href="package-structure.html#building-your-package"><i class="fa fa-check"></i><b>4.3.7</b> Building Your Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="package-structure.html"><a href="package-structure.html#tips-and-tricks-1"><i class="fa fa-check"></i><b>4.4</b> Tips and Tricks</a></li>
+<li class="chapter" data-level="4.5" data-path="package-structure.html"><a href="package-structure.html#sources-cited"><i class="fa fa-check"></i><b>4.5</b> Sources cited:</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>5</b> Testing</a><ul>
+<li class="chapter" data-level="5.1" data-path="testing.html"><a href="testing.html#why-should-you-test"><i class="fa fa-check"></i><b>5.1</b> Why should you test?</a></li>
+<li class="chapter" data-level="5.2" data-path="testing.html"><a href="testing.html#unit-tests"><i class="fa fa-check"></i><b>5.2</b> Unit Tests</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="testing.html"><a href="testing.html#what-are-unit-tests"><i class="fa fa-check"></i><b>5.2.1</b> What are unit tests?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="testing.html"><a href="testing.html#setting-up-the-testing-environment"><i class="fa fa-check"></i><b>5.2.2</b> Setting up the testing environment</a></li>
+<li class="chapter" data-level="5.2.3" data-path="testing.html"><a href="testing.html#expectations"><i class="fa fa-check"></i><b>5.2.3</b> Expectations</a></li>
+<li class="chapter" data-level="5.2.4" data-path="testing.html"><a href="testing.html#structure-and-location-of-unit-tests"><i class="fa fa-check"></i><b>5.2.4</b> Structure and Location of Unit Tests</a></li>
+<li class="chapter" data-level="5.2.5" data-path="testing.html"><a href="testing.html#tips-for-making-good-tests"><i class="fa fa-check"></i><b>5.2.5</b> Tips for making good tests</a></li>
+<li class="chapter" data-level="5.2.6" data-path="testing.html"><a href="testing.html#automated-checks-and-automated-testing"><i class="fa fa-check"></i><b>5.2.6</b> Automated Checks and Automated Testing</a></li>
+<li class="chapter" data-level="5.2.7" data-path="testing.html"><a href="testing.html#bonus-the-goodpractice-package"><i class="fa fa-check"></i><b>5.2.7</b> Bonus: The goodpractice Package</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="testing.html"><a href="testing.html#integrated-tests"><i class="fa fa-check"></i><b>5.3</b> Integrated Tests</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="testing.html"><a href="testing.html#motivation-1"><i class="fa fa-check"></i><b>5.3.1</b> Motivation</a></li>
+<li class="chapter" data-level="5.3.2" data-path="testing.html"><a href="testing.html#the-integrated-testing-workflow"><i class="fa fa-check"></i><b>5.3.2</b> The integrated testing workflow</a></li>
+<li class="chapter" data-level="5.3.3" data-path="testing.html"><a href="testing.html#setting-up-integrated-tests"><i class="fa fa-check"></i><b>5.3.3</b> Setting up Integrated Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="testing.html"><a href="testing.html#tips-and-tricks-2"><i class="fa fa-check"></i><b>5.4</b> Tips and Tricks</a></li>
+<li class="chapter" data-level="5.5" data-path="testing.html"><a href="testing.html#sources-cited-1"><i class="fa fa-check"></i><b>5.5</b> Sources cited</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a><ul>
+<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#advanced-tools-for-r"><i class="fa fa-check"></i><b>6.1</b> Advanced tools for R</a></li>
+<li class="chapter" data-level="6.2" data-path="conclusion.html"><a href="conclusion.html#python-and-other-languages"><i class="fa fa-check"></i><b>6.2</b> Python and Other Languages</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Package Development in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="github" class="section level1">
+<h1><span class="header-section-number">3</span> GitHub</h1>
+<p>The previous page in the guide discussed <a href="./development-with-rstudio.html">RStudio</a>. The next page in the guide discusses <a href="./package-structure.html">Package Structure in R</a>. This page is an introduction to Git and GitHub for beginners. In it, we’ll motivate Git/GitHub, and then discuss what precisely Git/GitHub do and how to use them.</p>
+<div id="why-use-gitgithub" class="section level2">
+<h2><span class="header-section-number">3.1</span> Why use Git/GitHub?</h2>
+<p>Git and GitHub are actually two different things, and deserve their own sections. Before diving into specifics, however, we should talk about why Git/GitHub exist in the first place. Broadly, Git and GitHub are just tools that developers use to organize their code, which specifically solve three main organizational problems.</p>
+<p>First, imagine that two programmers (we’ll refer to them as Carlos and Grace) are working together to build a website that automatically displays polling results from US elections, and suppose Grace modifies a script to change the method for aggregating polling data. It would be tedious for Carlos and Grace to email the script back and forth each time they updated it. Instead, they need a <em>repository</em> where they can update and sync their code to make sure they’re on the same page. GitHub allows programmers to create such repositories.</p>
+<p>Second, imagine that farther along in the project, Grace decides that she needs to totally rewrite the code which stores and organizes polling data. Unfortunately, while Grace modifies the system which stores the data, it will be offline, which is unfortunate because Carlos needs to use the data for his work on the project. To avoid this dilemma, Git and GitHub allow programmers to create different versions, called branches, of their code. By branching, Grace can modify the storage system, and in the meantime, Carlos can continue to use the old storage system for his work.</p>
+<p>Third, suppose that once Grace and Carlos have finished their website, they want to publish all the statistical functions and tools they built so that other researchers can use those tools to reproduce Grace and Carlos’s research. Putting all of their work on GitHub is probably the quickest and easiest way to make it accessible to other researchers.</p>
+<div id="what-is-git" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> What is Git?</h3>
+<p><img src="Images/gitgraphic.PNG" /></p>
+<p>Git is a local version control system. In other words, Git automatically organizes and saves versions of code on your computer, but does not connect to the internet: it’s purely accessible through the command prompt on a computer (there are also other ways to use Git, but it’s generally best to use the command prompt). Git organizes code in two ways.</p>
+<p>First, Git sends discrete versions of code to a local database or repository on the computer on which it is installed. To understand this, imagine that Carlos is writing an R script which determines the proper weights for aggregating polling data, and at some point he finishes the first version of the script. At this point, Carlos can send his code to the local repository, in an action called <em>commiting</em> his script. We’ll discuss how to do this later, but note that scripts are not automatically committed to the repository. If Carlos deleted all the code in the script and saved it, he could still access the script by going into the repository. Moreover, the repository also stores all of the previous versions of code, and can backtrack through the various commits, so if Carlos decides the version of the script he built last year worked better, he can use Git to access it.</p>
+<p>Second, Git can create branches, or separate versions of code, on the computer it’s installed to. Remember how Grace wanted to revamp the storage system for polling data without preventing Carlos from accessing the old storage system? Using Git, Grace should create a new <em>branch</em> in the repository. For most practical purposes, each branch exists as a separate version of the entire polling project in the Git repository, allowing Grace to modify and experiment without compromising the functionality of the <em>master</em> or original branch.</p>
+<p>While she’s working, Grace can use Git to move back and forth between the branches. Then, when she finishes designing and testing the new storage system, she can <em>merge</em> the two branches together, and Carlos’s scripts will automatically start using the new storage system.</p>
+</div>
+<div id="what-is-github" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> What is GitHub?</h3>
+<p>Where Git creates <em>local</em> repositories on an individual computer, GitHub allows programmers to create <em>remote</em> repositories, stored online, for their code. This is pretty simple concept, but it’s extroardinarily useful. It means that when Grace finishes updating a series of scripts, she can simply <em>push</em> (push means send) them to GitHub, and then Carlos can in one command <em>pull</em> (download) the modified versions onto his computer to work with them. GitHub provides other important tools, but we will not discuss those until later.</p>
+</div>
+</div>
+<div id="setting-up-gitgithub" class="section level2">
+<h2><span class="header-section-number">3.2</span> Setting up Git/GitHub</h2>
+<div id="making-a-github-account" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Making a GitHub account</h3>
+<p>Signing up for a GitHub is fairly simple - just go to GitHub.com, click “sign up” in the upper right hand corner, and follow the instructions. We recommend, at least to begin with, getting a free version of GitHub.</p>
+</div>
+<div id="how-to-install-and-set-up-git" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> How to Install and Set Up Git</h3>
+<p>Because Git is a form of <em>local</em> source control, it does require installation. To install Git onto your computer, go to one of the following sites:</p>
+<ul>
+<li><p>For Linux: Head to <a href="https://git-scm.com/download/linux" class="uri">https://git-scm.com/download/linux</a> and follow the instructions.</p></li>
+<li><p>For Windows: Go to <a href="https://git-scm.com/download/win" class="uri">https://git-scm.com/download/win</a> and the download should automatically start.</p></li>
+<li><p>For Mac: Click on <a href="https://git-scm.com/download/mac" class="uri">https://git-scm.com/download/mac</a> and the download should automatically start.</p></li>
+</ul>
+<p>If you are running Windows/Mac and the websites above download an installer, simply follow the instructions from the installer - it’s fine to just use default settings.</p>
+<p>Before you can start using Git, you do have to do a one time set up. Git is built to track and organize old versions of code, so it will need you to set your username and email before it will let you start modifying programs. To set your username and email after installing, open the command line on your computer and type the following commands into it:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git config <span class="op">--</span>global user.name <span class="st">&quot;Your Name&quot;</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="op">$</span><span class="st"> </span>git config <span class="op">--</span>global user.email <span class="st">&quot;youremail@email.com&quot;</span></a></code></pre></div>
+<p>You might not get explicit confirmation from the command line - for example, when I set the username/email, I see the image below - but don’t worry, Git has still received the message.</p>
+<p><img src="Images/configglobals.PNG" /></p>
+<p>Now you’re ready to start using Git/GitHub!</p>
+</div>
+</div>
+<div id="starting-to-use-gitgithub" class="section level2">
+<h2><span class="header-section-number">3.3</span> Starting to use Git/GitHub</h2>
+<div id="creating-projects-and-repositories" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Creating Projects and Repositories</h3>
+<p>The first step to using git is creating a project, or repository (repo for short). There are generally two ways to create a repo in Git.</p>
+<div id="method-1-start-your-project-on-github" class="section level5">
+<h5><span class="header-section-number">3.3.1.0.1</span> Method 1: Start your project on GitHub</h5>
+<p>The first way to start a repo is by creating it on GitHub. To do so, log into your GitHub account. Look near the top-right for your profile icon, click it, and click “Your Profile.” Then you should see “Repositories” in the top tab, and then click the green “New” button on the right.</p>
+<p><img src="Images/gitdashboard.PNG" /></p>
+<p>GitHub will prompt you to choose a repository name and description of the repo, which you should enter, and will also ask you whether you’d like to initialize the repository with a README. You should generally add README and .gitignore files, although we’ll discuss their functions and importance later. For now, just add the README.</p>
+<p>Once you’ve created the repository on GitHub, the next step is to link it with a local Git repository. To do this, open the <em>command prompt</em> on your computer. You’ll need to enter a couple of commands to get the repo set up on your computer.</p>
+<p>First, you’ll need to set the <em>working directory</em> in the command prompt. The working directory is the location where Git and command prompt will execute all of your commands - ie. if you tell Git to create a new file, the new file will be located your working directory. Thus, before you download your repository, you’ll want to navigate to the folder in which you want the repository to be located. For example, Carlos might want to put a repo in his “R” folder inside the “Documents” folder on his computer. To do this, he’d use the ‘cd’ command, which stands for “change directory,” and then copy and paste the path of the folder he’d like to place the repository in. An example is given below:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>cd C<span class="op">:</span><span class="er">/</span>Users<span class="op">/</span>Carlos<span class="op">/</span>Documents<span class="op">/</span>R</a></code></pre></div>
+<p>Next, you will need to tell git to download, or <em>clone</em>, the repo. You can do this using the “git clone” command, which allows you to download and sync a repository <em>for the first time.</em> This will download the repo, with all its contents, onto your computer and automatically set up a local version of the repo. See an example of the command below:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git clone https<span class="op">:</span><span class="er">//</span>GitHub.com<span class="op">/</span>Carlos_Account<span class="op">/</span>repository_name<span class="op">/</span></a></code></pre></div>
+</div>
+<div id="method-2-git-init" class="section level5">
+<h5><span class="header-section-number">3.3.1.0.2</span> Method 2: Git init</h5>
+<p>You can also initialize repos through Git and then upload them to GitHub. To do this, first create a folder where you’d like the repo to be located. Then, open the command line, and like before, navigate to the folder using the ‘cd’ command. Once you’ve navigated there, you can initialize the repo locally by typing “git init”&quot;</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>cd C<span class="op">:</span><span class="er">/</span>Users<span class="op">/</span>Carlos<span class="op">/</span>Documents<span class="op">/</span>R<span class="op">/</span>repository_name</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="op">$</span><span class="st"> </span>git init</a></code></pre></div>
+<p>This sets up a local repository! We’ll go over how to link a local repository set up this way to GitHub in the next section.</p>
+</div>
+</div>
+<div id="modifying-projects" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Modifying Projects</h3>
+<p>Say you have created some code in your project directory and want to add it to the repository. To do this, you need to use three commands: <em>git add</em>, <em>git commit</em>, and <em>git push.</em> Note that sending scripts to the local repository is (perhaps counterintuitively) known as <em>commiting</em> them, not adding them.</p>
+<p>First, you need to <em>add</em> scripts to Git (adding scripts doesn’t add them to the repository - rather, it just lets Git know that you will eventually <em>commit</em> or send them to the repository). To do this, navigate to the correct working directory and type ‘git add [your script’s filepath]’ to the directory. You can add multiple files in a row with no problem.</p>
+<p>Second, you need to <em>commit</em> scripts, which means actually sending them to the local repository. To do this, simply type <em>git commit</em> to the command line after you’ve added all the scripts you want to send to the repository. Git will open a text editor and prompt you to add a message to explain what the commit is for - type in your desired message, then hit “escape” to leave the text editor, and type “:wq” to save and exit the message interface. Once you’ve committed files, all of the files you’ve previously added will be saved on your local repository.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>cd C<span class="op">:</span><span class="er">/</span>Users<span class="op">/</span>Carlos<span class="op">/</span>Documents<span class="op">/</span>R<span class="op">/</span>repository_name</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="op">$</span><span class="st"> </span>git add <span class="st">&#39;scriptname.R&#39;</span></a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="op">$</span><span class="st"> </span>git add <span class="st">&#39;scriptname2.R&#39;</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="op">$</span><span class="st"> </span>git commit</a></code></pre></div>
+<p>The following command line code produces something like this:</p>
+<p><img src="Images/committing1.PNG" /></p>
+<p>Depending on the OS you’re running (and perhaps the IDE), you might also be able to add your comment directly into the command line, which is a bit easier. You can do this by typing “commit -m” followed by your message in quotes.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>cd C<span class="op">:</span><span class="er">/</span>Users<span class="op">/</span>Carlos<span class="op">/</span>Documents<span class="op">/</span>R<span class="op">/</span>repository_name</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="op">$</span><span class="st"> </span>git add <span class="st">&#39;scriptname.R&#39;</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="op">$</span><span class="st"> </span>git add <span class="st">&#39;scriptname2.R&#39;</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="op">$</span><span class="st"> </span>git commit <span class="op">-</span>m <span class="st">&quot;Fixed small bug&quot;</span></a></code></pre></div>
+<p>Lastly, you need to <em>push</em> the files, which means sending them to GitHub online. Before you do this, if you created the repository locally and have not already done so, you’ll need to specify to Git the url to send the commits to. To do this, type ‘git remote add origin [your url]’ into your command line. Then, you can <em>push</em> the file by writing ‘git push -u origin master,’ which will send the file to the GitHub repo.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git remote add origin https<span class="op">:</span><span class="er">//</span>GitHub.com<span class="op">/</span>user_name<span class="op">/</span>repository_name</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="op">$</span><span class="st"> </span>git push <span class="op">-</span>u origin master</a></code></pre></div>
+</div>
+<div id="accessing-older-versions-of-code" class="section level3">
+<h3><span class="header-section-number">3.3.3</span> Accessing older versions of code</h3>
+<p>You should never be scared of Git/GitHub, because they only add information - they almost never delete it. In practice, this means that if you commit horrible changes to your code, you can easily revert to a previous version. For example, let’s say Grace wrote some new functions for a script, deleted them and committed the deletes later on, but now wants the functions back. She can easily access the older script using Git. First, she should use the “git log” command to see what commits have been made recently.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git log</a></code></pre></div>
+<p>This command might give an output like this:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">commit 06c347sa (HEAD -&gt;<span class="st"> </span>master, origin<span class="op">/</span>master, origin<span class="op">/</span>HEAD)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">Author<span class="op">:</span><span class="st"> </span>Grace Smith <span class="op">&lt;</span>gracesmith<span class="op">@</span>gmail.com<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">Date<span class="op">:</span><span class="st">   </span>Sun Feb <span class="dv">18</span> <span class="dv">23</span><span class="op">:</span><span class="dv">13</span><span class="op">:</span><span class="dv">32</span> <span class="dv">2018</span> <span class="dv">-0500</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5">    Remove storage functions</a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7">commit b69a14b</a>
+<a class="sourceLine" id="cb16-8" data-line-number="8">Author<span class="op">:</span><span class="st"> </span>Grace Smith <span class="op">&lt;</span>gracesmith<span class="op">@</span>gmail.com<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9">Date<span class="op">:</span><span class="st">   </span>Sat Feb <span class="dv">17</span> <span class="dv">23</span><span class="op">:</span><span class="dv">11</span><span class="op">:</span><span class="dv">28</span> <span class="dv">2018</span> <span class="dv">-0500</span></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11">    Add storage functions</a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb16-13" data-line-number="13">commit 8a237d1</a>
+<a class="sourceLine" id="cb16-14" data-line-number="14">Author<span class="op">:</span><span class="st"> </span>Grace Smith <span class="op">&lt;</span>gracesmith<span class="op">@</span>gmail.com<span class="op">&gt;</span></a>
+<a class="sourceLine" id="cb16-15" data-line-number="15">Date<span class="op">:</span><span class="st">   </span>Fri Feb <span class="dv">16</span> <span class="dv">21</span><span class="op">:</span><span class="dv">28</span><span class="op">:</span><span class="dv">46</span> <span class="dv">2018</span> <span class="dv">-0500</span></a>
+<a class="sourceLine" id="cb16-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb16-17" data-line-number="17">    Initial commit</a></code></pre></div>
+<p>Clearly, Grace should restore the second commit listed, named ‘b69a14b,’ in order to access the functions she deleted. To do so, Grace can use the “git reset” command.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git reset <span class="op">--</span>soft b69a14b</a></code></pre></div>
+<p>This will update the current version of the script to the b69a14b version, which Grace can then inspect and test until she’s ready to commit it to Git/GitHub. Note that there is alos a “git reset –hard” option, which works the same way, but is a pretty serious action to take because it will effectively delete all the commits prior to the version being restored. The soft option is almost always a better choice.</p>
+</div>
+<div id="the-.gitignore-file" class="section level3">
+<h3><span class="header-section-number">3.3.4</span> The .gitignore file</h3>
+<p>There’s one more thing you should know about adding/modifying files that will make your life a lot easier. Sometimes, when modifying and commiting projects, you won’t want to type out every individual file you’ve modified: you’ll instead want to use the “git add .” command which will simply queue every modified file to be committed.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git add .</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="op">$</span><span class="st"> </span>git commit <span class="op">-</span>m <span class="st">&#39;Message here&#39;</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="op">$</span><span class="st"> </span>git push</a></code></pre></div>
+<p>However, often, you’ll have files in your directory which you do not want to commit or push to GitHub because they’ll clutter up the directory. For example, R directories create “.RHistory” and “.RData” files which will save your history and working environment. These are useful perhaps when writing code, but you don’t want them taking up space in your final packaged product.</p>
+<p>To solve this problem, you can use a <em>.gitignore file.</em> A .gitignore file tells Git to ignore certain kinds of files when you write ‘git add .’. For example, gitignore files are frequently configured to tell git to ignore csv files, .RData files, installer logs, and more.</p>
+<p>Let’s discuss how <em>.gitignore</em> files actually work. A .gitignore file is really just a glorified text file. However, its filename should be just ‘.gitignore’, because that’s how Git recognizes it - then, if you put a file titled ‘.gitignore’ in a directory you’re working on, Git will use the .gitignore file to decide what to ignore in that specific directory. For example, if Grace is working on a project in ‘C:/Users/gracesmith/Documents/R/repo_name’, she should create a ‘.gitignore’ file inside that folder.</p>
+<p>This still leaves an important question - how does Git use the .gitignore file to which files to ignore? Essentially, .gitignore files are just a bunch of independent lines of text, and each line tells git another specific pattern of filepath to ignore. For example, consider the following example of a .gitignore file:</p>
+<p><img src="Images/gitignore3.PNG" /></p>
+<p>Each line beginning with a ‘#’ is just a comment explaining the function of that part of the .gitignore file. However, there are a couple basic syntactical rules you need to understand.</p>
+<ol style="list-style-type: decimal">
+<li><p>If you write ‘.filetype’, then all files which end with ‘.filetype’ will be ignored by git. For example, the third line in the above example reads .RHistory,&quot; so all files with a ‘.RHistory’ in the file name (even if the files are in subdirectories) will be ignored.</p></li>
+<li><p>If you write ‘string,’ then everything in the directory which contains that ‘string’ in it will be ignored. For example, if Grace wrote ‘dog’ in her .gitignore, then git would ignore both a file called ‘dog.csv’ and every file in a subdirectory called “dog”.</p></li>
+<li><p>If you prepend a pattern with an asterisk *, then the asterisk * serves as a wildcard which can match 0 or more characters. For example, if I write &quot;*car“, then git will ignore the file”mycar.R&quot;.</p></li>
+<li><p>If you prepend a pattern with a forward slash ‘/’, then git will only ignore files which match that pattern in the parent (root) directory. For example, I might write ‘/.csv’ in my gitignore file. This would cause git to ignore a file with the path “dog.csv”, but it would not ignore a file called “data/dog.csv.”</p></li>
+<li><p>If you prepend a pattern with an exclamation mark, git will <em>not</em> ignore that pattern. For example, if Grace really wanted to make sure her pictures of her dog were pushed to Git, she might write ‘!dog.PNG’ to ensure git did not ignore that picture.</p></li>
+</ol>
+<p>The rules can seem confusing at times, but it’s hard to go wrong - usually, there are at least 10 ways to ignore any given file you want to ignore. Moreover, if you’re still confused, you might visit Atlassian, which has a wonderful table of all of the various syntactical tricks you can use in your own gitignores, linked <a href="https://www.atlassian.com/git/tutorials/gitignore">here</a>.</p>
+<p>Lastly (and most importantly), to save you time, the wonderful <a href="https://www.iq.harvard.edu/people/nalette-brodnax">NaLette Brodnax</a> has created a template .gitignore file which you can use to declutter your GitHub repos. Using it requires three steps:</p>
+<p>Step 1: Download the file “template.gitignore” from <a href=".\template.gitignore">here</a>. It should look something like this when you open it:</p>
+<p><img src="Images/gitignore.PNG" /></p>
+<p>Step 2: Manually move the template file from your downloads folder to the directory of interest. For example, if Grace is working on a project in ‘C:/Users/gracesmith/Documents/R/repo_name’, she should copy the template into that folder.</p>
+<p>Step 3: Right click on the ‘template.gitignore’ file in the folder and delete the ‘template’ part of the name, so that the file name is just ‘.gitignore’. This will help git recognize that your .gitignore file is in fact a .gitignore file. Your operating system might protest at this - Windows in particular freaks out at ‘.gitignore’ files, which is why we initially named the template ‘templates.gitignore’ instead of just ‘.gitignore’. However, once the .gitignore file is in the correct directory, it’s safe to change the path. Your end result should look something like this:</p>
+<div class="figure">
+<img src="Images/gitignore2.PNG" alt="A .gitignore file" />
+<p class="caption">A .gitignore file</p>
+</div>
+<p>It has no name, but it will serve its intended purpose.</p>
+<p>If you decide to create your own .gitignore file, you can follow very similar steps.</p>
+<ol style="list-style-type: decimal">
+<li><p>Go into the directory you want and create a blank text file called ‘template.gitignore’. It’s necessary at first to keep the ‘template’ part because otherwise some operating systems will not let you create the file.</p></li>
+<li><p>Right click on the file, rename it and delete the ‘template’ part so the filename is just ‘.gitignore.’</p></li>
+<li><p>Start writing your gitignore file!</p></li>
+</ol>
+<p>.gitignore files aren’t glamerous, but they really are important - nobody wants to work with cluttered repositories.</p>
+</div>
+<div id="branching" class="section level3">
+<h3><span class="header-section-number">3.3.5</span> Branching</h3>
+<p><img src="Images/branchinggraphic.PNG" /></p>
+<p>As we discussed earlier, branches allow you to modify scripts while simaltaneous keeping the old versions easily accessible. In practice, the way this works is that the branch you select in git changes the way that scripts you open using explorer/finder appear. For example, if Carlos has the following script as the master (default) branch in Git, the script might look something like this when he opens it on his computer:</p>
+<div class="figure">
+<img src="Images/hello1.PNG" alt="Master Branch of the Hello World Script" />
+<p class="caption"><em>Master Branch of the Hello World Script</em></p>
+</div>
+<p>However, if he uses Git to switch to a test branch, he might open the exact same file using his file explorer and see the following:</p>
+<div class="figure">
+<img src="Images/hello2.PNG" alt="Test Branch of the Hello World Script" />
+<p class="caption"><em>Test Branch of the Hello World Script</em></p>
+</div>
+<p>Let’s discuss how to actually use git to branch.</p>
+<div id="creating-and-switching-branches" class="section level5">
+<h5><span class="header-section-number">3.3.5.0.1</span> Creating and Switching Branches</h5>
+<p>To create a branch, use the “git checkout” command followed with a “-b” and the name of the branch:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git checkout <span class="op">-</span>b branch_name</a></code></pre></div>
+<p>This will create a new branch which is identical to the initial (master) branch. You can modify it as you like, and you will still be able to easily access the initial (master) branch. To do this, simply use the “git checkout” command without the “-b” and type the name of the branch you want to switch to:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git checkout switch_to_this_branch</a></code></pre></div>
+<p>Remember, switching to a branch will change the way the file shows up once you open it from your computer.</p>
+</div>
+<div id="merging-branches" class="section level5">
+<h5><span class="header-section-number">3.3.5.0.2</span> Merging Branches</h5>
+<p>Suppose you have created a test branch, tested it to make sure it works, and now want to combine it with the original master branch. To do this, use the “git checkout” command in combination with the “git merge” command as follows:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="op">$</span><span class="st"> </span>git checkout master</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="op">$</span><span class="st"> </span>git merge test_branch_name</a></code></pre></div>
+<p>These two commands will merge the test branch into the master branch, meaning that the master branch at the end of the merging will look like the test branch.</p>
+</div>
+</div>
+<div id="conflicts" class="section level3">
+<h3><span class="header-section-number">3.3.6</span> Conflicts</h3>
+<p>Sometimes, however, Git will be unable to push or pull branches because it is getting conflicting information from two users. For example, suppose Grace has written the following function, which calculates the squared error between two values:</p>
+<div class="figure">
+<img src="Images/loss0.PNG" alt="Original Version of Loss Script" />
+<p class="caption"><em>Original Version of Loss Script</em></p>
+</div>
+<p>This function clearly has a bug in it, because it claims to return the squared error, but instead, it returns the absolute value of the error. Carlos notices this, and modifies the function so that it accurately reports that it calculates the absolute value, and pushes his modified version to GitHub:</p>
+<div class="figure">
+<img src="Images/lossCarlos.PNG" alt="Carlos’s Pushed Version of Loss Script" />
+<p class="caption"><em>Carlos’s Pushed Version of Loss Script</em></p>
+</div>
+<p>But before Grace realizes Carlos has modified the script, she also fixes the bug, but instead by changing the absolute value to a squaring function:</p>
+<div class="figure">
+<img src="Images/lossGrace.PNG" alt="Grace’s Modified Version of Loss Script" />
+<p class="caption"><em>Grace’s Modified Version of Loss Script</em></p>
+</div>
+<p>Git is smart, so when Grace tries to push her version to GitHub, Git will recognize that the two versions of the script conflict. As a result, it will throw the following error:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">C<span class="op">:</span>\Users\gracesmith\Documents\R\repo_name<span class="op">&gt;</span>git push</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2">To https<span class="op">:</span><span class="er">//</span>GitHub.com<span class="op">/</span>gracesmith<span class="op">/</span>repo_name</a>
+<a class="sourceLine" id="cb22-3" data-line-number="3"> <span class="op">!</span><span class="st"> </span>[rejected]        master -&gt;<span class="st"> </span><span class="kw">master</span> (fetch first)</a>
+<a class="sourceLine" id="cb22-4" data-line-number="4">error<span class="op">:</span><span class="st"> </span>failed to push some refs to <span class="st">&#39;https://GitHub.com/gracesmith/repo_name&#39;</span></a>
+<a class="sourceLine" id="cb22-5" data-line-number="5">hint<span class="op">:</span><span class="st"> </span>Updates were rejected because the remote contains work that you do</a>
+<a class="sourceLine" id="cb22-6" data-line-number="6">hint<span class="op">:</span><span class="st"> </span>not have locally. This is usually caused by another repository pushing</a>
+<a class="sourceLine" id="cb22-7" data-line-number="7">hint<span class="op">:</span><span class="st"> </span>to the same ref. You may want to first integrate the remote changes</a>
+<a class="sourceLine" id="cb22-8" data-line-number="8">hint<span class="op">:</span><span class="st"> </span>(e.g., <span class="st">&#39;git pull ...&#39;</span>) before pushing again.</a>
+<a class="sourceLine" id="cb22-9" data-line-number="9">hint<span class="op">:</span><span class="st"> </span>See the <span class="st">&#39;Note about fast-forwards&#39;</span> <span class="cf">in</span> <span class="st">&#39;git push --help&#39;</span> <span class="cf">for</span> details.</a></code></pre></div>
+<p>Effectively, Git recognizes that Carlos has made modifications to the script which were pushed to GitHub that Grace doesn’t have. This usually happens <em>when two programmers modify exactly the same line in the single script</em>, such as line 6 in the above examples. To solve this problem, Grace should follow Git’s advice, and try the “git pull” command. This will lead to the following message from git:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">C<span class="op">:</span>\Users\gracesmith\Documents\R\repo_name<span class="op">&gt;</span>git pull</a>
+<a class="sourceLine" id="cb23-2" data-line-number="2">remote<span class="op">:</span><span class="st"> </span>Counting objects<span class="op">:</span><span class="st"> </span><span class="dv">3</span>, done.</a>
+<a class="sourceLine" id="cb23-3" data-line-number="3">remote<span class="op">:</span><span class="st"> </span>Compressing objects<span class="op">:</span><span class="st"> </span><span class="dv">100</span>% (<span class="dv">3</span><span class="op">/</span><span class="dv">3</span>), done.</a>
+<a class="sourceLine" id="cb23-4" data-line-number="4">remote<span class="op">:</span><span class="st"> </span>Total <span class="dv">3</span> (delta <span class="dv">1</span>), reused <span class="dv">0</span> (delta <span class="dv">0</span>), pack<span class="op">-</span>reused <span class="dv">0</span></a>
+<a class="sourceLine" id="cb23-5" data-line-number="5">Unpacking objects<span class="op">:</span><span class="st"> </span><span class="dv">100</span>% (<span class="dv">3</span><span class="op">/</span><span class="dv">3</span>), done.</a>
+<a class="sourceLine" id="cb23-6" data-line-number="6">From https<span class="op">:</span><span class="er">//</span>GitHub.com<span class="op">/</span>gracesmith<span class="op">/</span>repo_name</a>
+<a class="sourceLine" id="cb23-7" data-line-number="7">   e719863..59fc0ba  master     -&gt;<span class="st"> </span>origin<span class="op">/</span>master</a>
+<a class="sourceLine" id="cb23-8" data-line-number="8">Auto<span class="op">-</span>merging scriptname.R</a>
+<a class="sourceLine" id="cb23-9" data-line-number="9"><span class="kw">CONFLICT</span> (content)<span class="op">:</span><span class="st"> </span>Merge conflict <span class="cf">in</span> scriptname.R</a>
+<a class="sourceLine" id="cb23-10" data-line-number="10">Automatic merge failed; fix conflicts and then commit the result.</a></code></pre></div>
+<p>Again, Git is letting Grace know that it sees there’s a conflict and that Git needs human help to fix it. Once Grace has pulled Carlos’s changes, she can go open the script in her computer and should see something like the following:</p>
+<div class="figure">
+<img src="Images/lossConflict.PNG" alt="Conflicted Version of Loss Script" />
+<p class="caption"><em>Conflicted Version of Loss Script</em></p>
+</div>
+<p>The “&lt;&lt;&lt;&lt;” and “&gt;&gt;&gt;&gt;” lines are in the script to signal the beginning and end of a merge conflict, whereas the “===” line separates the two different versions. On the top is Grace’s version and on the bottom is Carlos’s. To resolve the merge conflict, Grace should manually select the two lines she prefers and then delete all of the “&lt;, =, &gt;” symbols to let Git know that the conflict has been resolved. Then, she can commit and push the file to Git, and she’ll be good to go!</p>
+<p>Overall: merge conflicts are rather annoying and can be confusing, so the best way to avoid them is to clearly deliniate which programmers will be working on which sections of which scripts. This will prevent Git (and you) from getting confused.</p>
+</div>
+<div id="tips-and-tricks" class="section level3">
+<h3><span class="header-section-number">3.3.7</span> Tips and Tricks</h3>
+<p>Git can be confusing, but there are three general rules of thumb you can follow to figure out any bugs that come up.</p>
+<ol style="list-style-type: decimal">
+<li><p>Git is super smart. If there’s a bug and Git is recommending a particular way of fixing it, there’s a very high chance that Git is right.</p></li>
+<li><p>Use the git status command. After entering git status, Git will give you a rundown of the status of the entire repository.</p></li>
+<li><p>If that doesn’t work (or you don’t understand what is going on), you can always copy and paste the error from the command line into Google and reference stackexchange. There is a wealth of online help!</p></li>
+</ol>
+<p>Try not to worry too much! Git almost exclusively <em>adds information</em>, meaning that you can always just go back and restore a previous version - you’ll never lose your work.</p>
+</div>
+<div id="cheat-sheats" class="section level3">
+<h3><span class="header-section-number">3.3.8</span> Cheat sheats</h3>
+<p>Lastly, there are a couple of cheat sheets that you can use to make your life easier.</p>
+<ul>
+<li><p><a href="http://kbroman.org/GitHub_tutorial/pages/init.html">Karl Broman’s tutorial</a> runs you through initializing a repository</p></li>
+<li><p><a href="https://services.GitHub.com/on-demand/downloads/GitHub-git-cheat-sheet.pdf">This official GitHub cheat sheet</a> lists all of the general commands you’ll need</p></li>
+</ul>
+</div>
+</div>
+<div id="further-reading" class="section level2">
+<h2><span class="header-section-number">3.4</span> Further reading</h2>
+<p>If you’re interested in learning more about Git and GitHub, you might want to take a look at the following resources:</p>
+<ul>
+<li><p>The Software Carpentry Foundation has a great mid level Git tutorial <a href="https://swcarpentry.GitHub.io/git-novice/">here</a></p></li>
+<li><p>Atlassian has some wonderful advanced Git tutorials <a href="https://www.atlassian.com/git/tutorials/advanced-overview">here</a></p></li>
+</ul>
+<p>##Sources cited</p>
+<p>We used <a href="http://kbroman.org/GitHub_tutorial/pages/init.html">Karl Broma’s Book</a>, a <a href="https://www.git-tower.com/learn/git/faq/restore-repo-to-previous-revision">Git-Tower post</a>, and the GitHub documentation <a href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics">here</a> and <a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">here</a> to help write this guide.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="development-with-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="package-structure.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

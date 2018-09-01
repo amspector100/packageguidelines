@@ -16,14 +16,11 @@ git rm *.json -rf
 git rm template.gitignore
 git rm .\Images\* -rf 
 git rm .\libs\* -rf 
-git rm .\_book\* -rf
-
-git checkout master .gitignore 
 
 REM Move it to the root and remove the docs directory
 git checkout master _book
 call xcopy .\_book .\ /E
-touch .nojekyll
+git rm .\_book\* -rf
 
 REM Add and push
 git add .

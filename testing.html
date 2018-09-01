@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Package Development in R</title>
+  <meta name="description" content="This guide walks through the process of developing R package">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Package Development in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This guide walks through the process of developing R package" />
+  <meta name="github-repo" content="amspector100/packageguidelines" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Package Development in R" />
+  
+  <meta name="twitter:description" content="This guide walks through the process of developing R package" />
+  
+
+<meta name="author" content="Asher Spector">
+
+
+<meta name="date" content="2018-08-31">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="package-structure.html">
+<link rel="next" href="conclusion.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-is-a-package"><i class="fa fa-check"></i><b>1.1</b> What is a package?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#table-of-contents"><i class="fa fa-check"></i><b>1.2</b> Table of Contents</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#what-do-i-need-to-know-before-reading-this-guide"><i class="fa fa-check"></i><b>1.3</b> What do I need to know before reading this guide?</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#major-acknowledgements"><i class="fa fa-check"></i><b>1.4</b> Major Acknowledgements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html"><i class="fa fa-check"></i><b>2</b> Development with RStudio</a><ul>
+<li class="chapter" data-level="2.1" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#why-use-rstudio"><i class="fa fa-check"></i><b>2.1</b> Why use RStudio?</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#what-if-you-dont-want-to-use-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> What if you don’t want to use RStudio?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#setting-up-rstudio"><i class="fa fa-check"></i><b>2.2</b> Setting up RStudio</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#setting-up-r"><i class="fa fa-check"></i><b>2.2.1</b> Setting up R</a></li>
+<li class="chapter" data-level="2.2.2" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#downloading-development-tools"><i class="fa fa-check"></i><b>2.2.2</b> Downloading Development Tools</a></li>
+<li class="chapter" data-level="2.2.3" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#setting-up-rstudio-1"><i class="fa fa-check"></i><b>2.2.3</b> Setting up RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#basic-rstudio-use"><i class="fa fa-check"></i><b>2.3</b> Basic RStudio Use</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#screen-breakdown"><i class="fa fa-check"></i><b>2.3.1</b> Screen Breakdown</a></li>
+<li class="chapter" data-level="2.3.2" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#basic-commands"><i class="fa fa-check"></i><b>2.3.2</b> Basic Commands</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="development-with-rstudio.html"><a href="development-with-rstudio.html#further-readingsources-cited"><i class="fa fa-check"></i><b>2.4</b> Further Reading/Sources Cited</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="github.html"><a href="github.html"><i class="fa fa-check"></i><b>3</b> GitHub</a><ul>
+<li class="chapter" data-level="3.1" data-path="github.html"><a href="github.html#why-use-gitgithub"><i class="fa fa-check"></i><b>3.1</b> Why use Git/GitHub?</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="github.html"><a href="github.html#what-is-git"><i class="fa fa-check"></i><b>3.1.1</b> What is Git?</a></li>
+<li class="chapter" data-level="3.1.2" data-path="github.html"><a href="github.html#what-is-github"><i class="fa fa-check"></i><b>3.1.2</b> What is GitHub?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="github.html"><a href="github.html#setting-up-gitgithub"><i class="fa fa-check"></i><b>3.2</b> Setting up Git/GitHub</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="github.html"><a href="github.html#making-a-github-account"><i class="fa fa-check"></i><b>3.2.1</b> Making a GitHub account</a></li>
+<li class="chapter" data-level="3.2.2" data-path="github.html"><a href="github.html#how-to-install-and-set-up-git"><i class="fa fa-check"></i><b>3.2.2</b> How to Install and Set Up Git</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="github.html"><a href="github.html#starting-to-use-gitgithub"><i class="fa fa-check"></i><b>3.3</b> Starting to use Git/GitHub</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="github.html"><a href="github.html#creating-projects-and-repositories"><i class="fa fa-check"></i><b>3.3.1</b> Creating Projects and Repositories</a></li>
+<li class="chapter" data-level="3.3.2" data-path="github.html"><a href="github.html#modifying-projects"><i class="fa fa-check"></i><b>3.3.2</b> Modifying Projects</a></li>
+<li class="chapter" data-level="3.3.3" data-path="github.html"><a href="github.html#accessing-older-versions-of-code"><i class="fa fa-check"></i><b>3.3.3</b> Accessing older versions of code</a></li>
+<li class="chapter" data-level="3.3.4" data-path="github.html"><a href="github.html#the-.gitignore-file"><i class="fa fa-check"></i><b>3.3.4</b> The .gitignore file</a></li>
+<li class="chapter" data-level="3.3.5" data-path="github.html"><a href="github.html#branching"><i class="fa fa-check"></i><b>3.3.5</b> Branching</a></li>
+<li class="chapter" data-level="3.3.6" data-path="github.html"><a href="github.html#conflicts"><i class="fa fa-check"></i><b>3.3.6</b> Conflicts</a></li>
+<li class="chapter" data-level="3.3.7" data-path="github.html"><a href="github.html#tips-and-tricks"><i class="fa fa-check"></i><b>3.3.7</b> Tips and Tricks</a></li>
+<li class="chapter" data-level="3.3.8" data-path="github.html"><a href="github.html#cheat-sheats"><i class="fa fa-check"></i><b>3.3.8</b> Cheat sheats</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="github.html"><a href="github.html#further-reading"><i class="fa fa-check"></i><b>3.4</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="package-structure.html"><a href="package-structure.html"><i class="fa fa-check"></i><b>4</b> Package Structure</a><ul>
+<li class="chapter" data-level="4.1" data-path="package-structure.html"><a href="package-structure.html#motivation"><i class="fa fa-check"></i><b>4.1</b> Motivation</a></li>
+<li class="chapter" data-level="4.2" data-path="package-structure.html"><a href="package-structure.html#solutions"><i class="fa fa-check"></i><b>4.2</b> Solutions</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="package-structure.html"><a href="package-structure.html#code-style"><i class="fa fa-check"></i><b>4.2.1</b> Code Style</a></li>
+<li class="chapter" data-level="4.2.2" data-path="package-structure.html"><a href="package-structure.html#documentation"><i class="fa fa-check"></i><b>4.2.2</b> Documentation</a></li>
+<li class="chapter" data-level="4.2.3" data-path="package-structure.html"><a href="package-structure.html#description"><i class="fa fa-check"></i><b>4.2.3</b> Description</a></li>
+<li class="chapter" data-level="4.2.4" data-path="package-structure.html"><a href="package-structure.html#namespace"><i class="fa fa-check"></i><b>4.2.4</b> Namespace</a></li>
+<li class="chapter" data-level="4.2.5" data-path="package-structure.html"><a href="package-structure.html#the-readme"><i class="fa fa-check"></i><b>4.2.5</b> The README</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="package-structure.html"><a href="package-structure.html#the-walkthrough"><i class="fa fa-check"></i><b>4.3</b> The Walkthrough</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="package-structure.html"><a href="package-structure.html#initializing-the-package"><i class="fa fa-check"></i><b>4.3.1</b> Initializing the Package</a></li>
+<li class="chapter" data-level="4.3.2" data-path="package-structure.html"><a href="package-structure.html#modifying-the-description-file"><i class="fa fa-check"></i><b>4.3.2</b> Modifying the DESCRIPTION File</a></li>
+<li class="chapter" data-level="4.3.3" data-path="package-structure.html"><a href="package-structure.html#starting-to-program"><i class="fa fa-check"></i><b>4.3.3</b> Starting to Program</a></li>
+<li class="chapter" data-level="4.3.4" data-path="package-structure.html"><a href="package-structure.html#warnings-and-simplicity"><i class="fa fa-check"></i><b>4.3.4</b> Warnings and Simplicity</a></li>
+<li class="chapter" data-level="4.3.5" data-path="package-structure.html"><a href="package-structure.html#documenting-your-package"><i class="fa fa-check"></i><b>4.3.5</b> Documenting your package</a></li>
+<li class="chapter" data-level="4.3.6" data-path="package-structure.html"><a href="package-structure.html#optional-adding-and-documenting-data"><i class="fa fa-check"></i><b>4.3.6</b> (Optional): Adding and Documenting Data</a></li>
+<li class="chapter" data-level="4.3.7" data-path="package-structure.html"><a href="package-structure.html#building-your-package"><i class="fa fa-check"></i><b>4.3.7</b> Building Your Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="package-structure.html"><a href="package-structure.html#tips-and-tricks-1"><i class="fa fa-check"></i><b>4.4</b> Tips and Tricks</a></li>
+<li class="chapter" data-level="4.5" data-path="package-structure.html"><a href="package-structure.html#sources-cited"><i class="fa fa-check"></i><b>4.5</b> Sources cited:</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>5</b> Testing</a><ul>
+<li class="chapter" data-level="5.1" data-path="testing.html"><a href="testing.html#why-should-you-test"><i class="fa fa-check"></i><b>5.1</b> Why should you test?</a></li>
+<li class="chapter" data-level="5.2" data-path="testing.html"><a href="testing.html#unit-tests"><i class="fa fa-check"></i><b>5.2</b> Unit Tests</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="testing.html"><a href="testing.html#what-are-unit-tests"><i class="fa fa-check"></i><b>5.2.1</b> What are unit tests?</a></li>
+<li class="chapter" data-level="5.2.2" data-path="testing.html"><a href="testing.html#setting-up-the-testing-environment"><i class="fa fa-check"></i><b>5.2.2</b> Setting up the testing environment</a></li>
+<li class="chapter" data-level="5.2.3" data-path="testing.html"><a href="testing.html#expectations"><i class="fa fa-check"></i><b>5.2.3</b> Expectations</a></li>
+<li class="chapter" data-level="5.2.4" data-path="testing.html"><a href="testing.html#structure-and-location-of-unit-tests"><i class="fa fa-check"></i><b>5.2.4</b> Structure and Location of Unit Tests</a></li>
+<li class="chapter" data-level="5.2.5" data-path="testing.html"><a href="testing.html#tips-for-making-good-tests"><i class="fa fa-check"></i><b>5.2.5</b> Tips for making good tests</a></li>
+<li class="chapter" data-level="5.2.6" data-path="testing.html"><a href="testing.html#automated-checks-and-automated-testing"><i class="fa fa-check"></i><b>5.2.6</b> Automated Checks and Automated Testing</a></li>
+<li class="chapter" data-level="5.2.7" data-path="testing.html"><a href="testing.html#bonus-the-goodpractice-package"><i class="fa fa-check"></i><b>5.2.7</b> Bonus: The goodpractice Package</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="testing.html"><a href="testing.html#integrated-tests"><i class="fa fa-check"></i><b>5.3</b> Integrated Tests</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="testing.html"><a href="testing.html#motivation-1"><i class="fa fa-check"></i><b>5.3.1</b> Motivation</a></li>
+<li class="chapter" data-level="5.3.2" data-path="testing.html"><a href="testing.html#the-integrated-testing-workflow"><i class="fa fa-check"></i><b>5.3.2</b> The integrated testing workflow</a></li>
+<li class="chapter" data-level="5.3.3" data-path="testing.html"><a href="testing.html#setting-up-integrated-tests"><i class="fa fa-check"></i><b>5.3.3</b> Setting up Integrated Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="testing.html"><a href="testing.html#tips-and-tricks-2"><i class="fa fa-check"></i><b>5.4</b> Tips and Tricks</a></li>
+<li class="chapter" data-level="5.5" data-path="testing.html"><a href="testing.html#sources-cited-1"><i class="fa fa-check"></i><b>5.5</b> Sources cited</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a><ul>
+<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#advanced-tools-for-r"><i class="fa fa-check"></i><b>6.1</b> Advanced tools for R</a></li>
+<li class="chapter" data-level="6.2" data-path="conclusion.html"><a href="conclusion.html#python-and-other-languages"><i class="fa fa-check"></i><b>6.2</b> Python and Other Languages</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Package Development in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="testing" class="section level1">
+<h1><span class="header-section-number">5</span> Testing</h1>
+<p>The previous page in the guide discussed <a href="./package-structure.html">package structure</a>. The next page in the guide is the <a href="./conclusion.html">Conclusion</a>. This page will walk you through the proper way to test packages using the testthat helper package. Another quick reminder: for those who do not want to use RStudio, it’s worth following along by reading the <a href="https://www.rdocumentation.org/packages/testthat/versions/2.0.0">testthat documentation</a> and <a href="https://www.rdocumentation.org/packages/testthat/versions/2.0.0/source">source code</a>. If you’ve installed and read through the RStudio guide, you’re good to go!</p>
+<p>You can find the ‘devex’ example package linked <a href="https://github.com/amspector100/packageguidelines/tree/master/devex">here, on GitHub</a>, if you’d like to look through it while reading the guide.</p>
+<div id="why-should-you-test" class="section level2">
+<h2><span class="header-section-number">5.1</span> Why should you test?</h2>
+<p>Suppose Grace has created a package and has been using it for a while, but she decides she’d like to modify one function to improve it. She modifies her function, tests it a bit, and then pushes her package to GitHub. Yet two weeks later, Carlos discovers that the changes she made created a bug in <em>another</em> function in the package! This situation is very annoying, especially if Carlos has no idea what has caused the bug or how to fix it.</p>
+<p>The solution to problems like this is to testing your package <em>systematically</em> and <em>automatically</em>. If Grace had rigorously tested the entire package before pushing it to GitHub, Carlos would never have had to deal with the new bug- Grace would have found out immediately. In other words, a good principle in package devleopment is to make sure your code <em>fails as fast as possible,</em> so you can find out and fix it. Of course, all programmers test their code, but not everyone tests systematically and automatically.</p>
+<p>We’ll split this page of the guide into two big parts. First, we’ll talk creating automatic <em>unit tests</em>, which test individual blocks of code (usually individual functions or classes). Second, we’ll talk about the process of <em>continuous integration</em> (CI), whch is a process designed to help you test your code continuously in collaboration with others without spending huge amounts of time waiting for testing to finish. Ideally, by the end of this guide, you should be aiming to make your packages <em>developer-proof</em> - i.e. if you have collaborators, or someone tries to fix your package, you can proactively prevent them from breaking anything important by developing high-quality tests and using a CI workflow.</p>
+</div>
+<div id="unit-tests" class="section level2">
+<h2><span class="header-section-number">5.2</span> Unit Tests</h2>
+<div id="what-are-unit-tests" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> What are unit tests?</h3>
+<p>Tests compare the <em>expected</em> output of a block of code to its <em>actual</em> output. For example, the following test tests whether the “generalized square root” function actually returns <span class="math inline">\(2\)</span> as the square root of <span class="math inline">\(4\)</span>.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="dv">4</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">2</span>, <span class="dt">imaginary =</span> <span class="dv">0</span>))</a></code></pre></div>
+<p><em>Unit tests</em> usually run on the computer of the developer who is modifying a package - for example, if Grace is updating her package, unit tests on her updates will run on her computer. Unit tests also should run automatically upon building a package.</p>
+<p>We’ll talk a little more about how exactly to create tests down below, but hopefully this makes the general concept clear (you’ve also probably been using the general concept as you program).</p>
+</div>
+<div id="setting-up-the-testing-environment" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Setting up the testing environment</h3>
+<p>Creating unit tests is actually quite easy, thanks to a package called ‘testtthat’ which works in combination with devtools. To begin, you should make sure ‘testthat’ is installed by running the following code:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;testthat&#39;</span>)</a></code></pre></div>
+<p>Next, you’ll want to make sure R recognizes you’re working on a package (you can do this by navigating to the .Rproj file in the ‘files’ tab in the bottom right corner of RStudio and clicking on it). Then, you can run the following command in the console:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">use_testthat</span>()</a></code></pre></div>
+<p>This will do a couple of things. First, it will add ‘testthat’ to the Suggests part of the DESCRIPTION, which will help other collaborators know to use testthat when modifying/working on the package. It will also create a ‘tests/testthat’ directory in your project, as well a file called ‘test/testthat.R’, as shown below.</p>
+<p><img src="Images/TestSS/devtoolstestthat.PNG" /></p>
+</div>
+<div id="expectations" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> Expectations</h3>
+<p>Before discussing how to write unit tests, we need to properly describe an expectation. An expectation tests whether the actual output of a single function call is what the developer expected. The ‘testthat’ package has a number of functions which compare outputs to expected values. When calling one of these functions, one of two things can happen:</p>
+<ol style="list-style-type: decimal">
+<li>If the actual output matches the expectation, nothing will happen!</li>
+<li>If the actual output does not match the expectation, it will throw an error.</li>
+</ol>
+<p>For example, ‘expect_equal()’ uses the base R function ‘all.equal()’ to check whether an output is (approximately) equal to an expectation. In the following code, the first function call will do nothing - the second function call will throw an error, displayed below.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">library</span>(testthat)</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">testthat<span class="op">::</span><span class="kw">expect_equal</span>(<span class="dv">2</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">testthat<span class="op">::</span><span class="kw">expect_equal</span>(<span class="dv">2</span>, <span class="dv">4</span>)</a></code></pre></div>
+<p><img src="Images/TestSS/expectationerror.PNG" /></p>
+<p>Here’s an (abbreviated) list of the expectation functions:</p>
+<ol style="list-style-type: decimal">
+<li><strong>expect_equal</strong>, as aforementioned, checks equality using the “all.equal()” base function.</li>
+<li><strong>expect_identical</strong> checks equality using the “identical()” base function. Generally, it’s better to use “expect_equal” because lots of R functions use numerical approximations which will cause expect_identical to fail when you don’t want it to.</li>
+<li><strong>expect_match</strong>, <strong>expect_output</strong>, <strong>expect_message</strong>, <strong>expect_warning</strong>, and <strong>expect_error</strong> all respectively test whether a string, output, warning, or error match a regular expression. For example, the following two expectations functions will not throw errors:</li>
+</ol>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">testthat<span class="op">::</span><span class="kw">expect_match</span>(<span class="st">&#39;hello1234&#39;</span>, <span class="st">&#39;hello&#39;</span>)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">testthat<span class="op">::</span><span class="kw">expect_warning</span>(<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;NaNs produced&#39;</span>)</a></code></pre></div>
+<p>The tests do not fail because (i) ‘hello1234’ contains ‘hello’ and (ii) the error message produced by sqrt(-2) contains the phrase ‘NaNs produced’.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>expect_is</strong> tests whether an object inherets from a class, specified in quotes. For example, the following test passes:</li>
+</ol>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1">testthat<span class="op">::</span><span class="kw">expect_is</span>(<span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;numeric&#39;</span>)</a></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>expect_true</strong> and <strong>expect_false</strong> respectively expect a statement to evaluate to true or false.</li>
+</ol>
+</div>
+<div id="structure-and-location-of-unit-tests" class="section level3">
+<h3><span class="header-section-number">5.2.4</span> Structure and Location of Unit Tests</h3>
+<p>Each <em>unit test</em> (which is written in an R script) should use a couple of expectations to test a single core function. It should use the function “test_that” (from the “testthat” package). “test_that” takes two parameters: a string, which describes the test, and a couple of expectations, surrounded by curly braces. For example, the following code will test whether the general_sqrt function from the devex package returns a complex number.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns complex number&quot;</span>, {</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">0</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb49-5" data-line-number="5">})</a></code></pre></div>
+<p>Multiple tests with similar functions should be put in the same file, and those test files must be put in the tests/testthat/ directory. Moreover, their name must start with the word ‘test’ - this will help RStudio automatically run your tests for you. For example, in the devex package, there are two very simple helper functions (‘general_sqrt’ and ‘loss’) and one moderately complex function (‘scalep’). As a result, the devex package has exactly two testing files: one called ‘testhelpers,’ which tests the helper functions, and another called ‘testscalep’, which tests the scalep function. The testhelpers file looks like this:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">library</span>(devex)</a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="kw">context</span>(<span class="st">&quot;generalized sqrt and loss&quot;</span>)</a>
+<a class="sourceLine" id="cb50-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb50-4" data-line-number="4"><span class="co"># Generalized sqrt ---------------------------------------</span></a>
+<a class="sourceLine" id="cb50-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb50-6" data-line-number="6"><span class="kw">test_that</span>(<span class="st">&quot;Returns complex number&quot;</span>, {</a>
+<a class="sourceLine" id="cb50-7" data-line-number="7">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb50-8" data-line-number="8">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb50-9" data-line-number="9">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">0</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb50-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb50-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb50-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
+<a class="sourceLine" id="cb50-13" data-line-number="13">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>)))</a>
+<a class="sourceLine" id="cb50-14" data-line-number="14">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb50-15" data-line-number="15">})</a>
+<a class="sourceLine" id="cb50-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb50-17" data-line-number="17"><span class="kw">test_that</span>(<span class="st">&quot;Warnings for vectors of length &gt; 1&quot;</span>, {</a>
+<a class="sourceLine" id="cb50-18" data-line-number="18">  <span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb50-19" data-line-number="19">  <span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>)), <span class="st">&#39;NaNs produced&#39;</span>)</a>
+<a class="sourceLine" id="cb50-20" data-line-number="20">})</a>
+<a class="sourceLine" id="cb50-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb50-22" data-line-number="22"><span class="co"># Loss ---------------------------------------------------</span></a>
+<a class="sourceLine" id="cb50-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb50-24" data-line-number="24"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct loss&quot;</span>, {</a>
+<a class="sourceLine" id="cb50-25" data-line-number="25">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb50-26" data-line-number="26">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb50-27" data-line-number="27">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-5</span>, <span class="dv">-2</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">25</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb50-28" data-line-number="28"><span class="er">}</span>)</a></code></pre></div>
+<p>Each test file, as demonstrated above, needs to load the package of interest (using ‘library’ is fine) and also should supply a string which succinctly describes the general purpose of all of the tests in the test file to the ‘context’ function.</p>
+<p>You can run all of the tests in the test/testthat directory by clicking Build&gt;Check Package or Control Shift E. If any test throws an error, RStudio will report two things. First, it will report the string given in the test which was given to the ‘test_that’ function call. Second, it will report the filename of the test file as well as the line of code that threw an error. For example, running the above tests yields the following result:</p>
+<p><img src="Images/TestSS/testthaterror1.PNG" /></p>
+<p>This indicates that line 18 of testhelpers.R failed in the test “Warnings for vectors of length &gt; 1.” Looking at the test code reveals that the general_sqrt function does not return a warning for positive vectors of length greater than one.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)))</a></code></pre></div>
+<p>To fix this, it might be worth adding in an extra line or two which ensures that the input to general_sqrt is as it should be (in order to prevent users from getting unexpected results).</p>
+</div>
+<div id="tips-for-making-good-tests" class="section level3">
+<h3><span class="header-section-number">5.2.5</span> Tips for making good tests</h3>
+<p>Good tests have a couple of characteristics.</p>
+<p><strong>First</strong>, good tests have high <em>coverage,</em> meaning that they test a large percentage of the lines of code of the package. For example, the code for the general_sqrt function is as follows:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co"># This function takes the complex square root of real numbers</span></a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">general_sqrt &lt;-<span class="st"> </span><span class="cf">function</span> (x){</a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb52-5" data-line-number="5">  <span class="co"># Issue warning for longer vectors</span></a>
+<a class="sourceLine" id="cb52-6" data-line-number="6">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb52-7" data-line-number="7">    <span class="kw">warning</span>(<span class="st">&#39;Argument of general_sqrt has length greater than 1&#39;</span>)</a>
+<a class="sourceLine" id="cb52-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb52-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb52-10" data-line-number="10">  <span class="co"># Return the normal square root if x &gt; 0</span></a>
+<a class="sourceLine" id="cb52-11" data-line-number="11">  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>){</a>
+<a class="sourceLine" id="cb52-12" data-line-number="12">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real =</span> <span class="kw">sqrt</span>(x), <span class="dt">imaginary =</span> <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb52-13" data-line-number="13">  }</a>
+<a class="sourceLine" id="cb52-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb52-15" data-line-number="15">  <span class="co"># Else return the complex square root</span></a>
+<a class="sourceLine" id="cb52-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb52-17" data-line-number="17">  <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb52-18" data-line-number="18">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="op">-</span>x)))</a>
+<a class="sourceLine" id="cb52-19" data-line-number="19">  }</a>
+<a class="sourceLine" id="cb52-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb52-21" data-line-number="21">}</a></code></pre></div>
+<p>The following test has low coverage for the general_sqrt function:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>)))</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb53-4" data-line-number="4">})</a></code></pre></div>
+<p>because it only tests whether general_sqrt returns the correct square root for negative numbers. This test thus only covers half of the code in general_sqrt, because the mechanism for dealing with nonnegative numbers is entirely separate. The following test is a better example, because it tests both positive and negative numbers.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>), <span class="dt">imaginary =</span> <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb54-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb54-4" data-line-number="4">})</a></code></pre></div>
+<p><strong>Second</strong>, it’s important to remember that coverage is only important because tests with high coverage tend to test all the different functionalities of a package. It’s possible to have tests which have very high coverage but aren’t great tests. Consider the following example.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">print_it &lt;-<span class="st"> </span><span class="cf">function</span>(text){</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2">  <span class="kw">print</span>(<span class="st">&#39;hello&#39;</span>)</a>
+<a class="sourceLine" id="cb55-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb55-5" data-line-number="5">testthat<span class="op">::</span><span class="kw">expect_warning</span>(<span class="kw">print_it</span>(<span class="st">&#39;hi&#39;</span>), <span class="ot">NA</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;hello&quot;</code></pre>
+<p>This expectation has 100% coverage because it will run every line of code (the expectation will also pass because no warning will be thrown). However, it’s not sufficient alone because it doesn’t actually test whether print_it returns the desired output: in this case, print_it will always print ‘hello’. In other words, the expectation does not test all of the functionality of the function.</p>
+<p><strong>Third</strong>, tests should run relatively quickly, if possible. Sometimes, it’s okay to maximize coverage even if you don’t test every single functionality to save time, because <em>usually</em> high coverage ensures you test most of the functionality of the package. This is particularly true because lots of integrated testing software (which we’ll discuss in integrated tests) will not be able to easily run tests which take too long. More on that later.</p>
+<p><strong>Fourth</strong>, tests should be clear to the reader, because sometimes there are bugs in tests too. If others eventually help develop or maintain your packages, they’ll want to know what it means when a test fails. Moreover, for large packages, you yourself may have trouble remembering the exact details of every test you’ve written. Thus, your tests should return clear error messages and be readable. For example, the following test is a bad example, for two reasons:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">sigmoid &lt;-<span class="st"> </span><span class="cf">function</span>(x, a, b){</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2">  <span class="kw">return</span>(<span class="kw">exp</span>(a<span class="op">*</span>x)<span class="op">/</span>(<span class="kw">exp</span>(a<span class="op">*</span>x) <span class="op">+</span><span class="st"> </span>b))</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb57-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="kw">test_that</span>(<span class="st">&#39;sigmoid output&#39;</span>, {</a>
+<a class="sourceLine" id="cb57-6" data-line-number="6">  <span class="kw">expect_equal</span>(<span class="kw">sigmoid</span>(<span class="fl">0.3068528</span>, <span class="dv">1</span>, <span class="fl">1.3591409</span>), <span class="fl">0.5</span>, <span class="dv">10</span><span class="op">^-</span><span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb57-7" data-line-number="7">})</a></code></pre></div>
+<p>The string ‘sigmoid output’ does not describe the purpose of the test, which is to test the precision of the sigmoid output. This means that if the test fails, it will be hard to tell what’s wrong. Additionally, the purpose of the test is not clear to begin with - what do the seemingly random decimals mean? At the very least, it’s probably worth putting comments in explaining the point of the test, as shown below.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">sigmoid &lt;-<span class="st"> </span><span class="cf">function</span>(x, a, b){</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2">  <span class="kw">return</span>(<span class="kw">exp</span>(a<span class="op">*</span>x)<span class="op">/</span>(<span class="kw">exp</span>(a<span class="op">*</span>x) <span class="op">+</span><span class="st"> </span>b))</a>
+<a class="sourceLine" id="cb58-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb58-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb58-5" data-line-number="5"><span class="kw">test_that</span>(<span class="st">&#39;test sigmoid precision&#39;</span>, {</a>
+<a class="sourceLine" id="cb58-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb58-7" data-line-number="7">  <span class="co"># Check sigmoid(ln(e/2), ln(e/2), e/2) is very close to 1/2.</span></a>
+<a class="sourceLine" id="cb58-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb58-9" data-line-number="9">  <span class="kw">expect_equal</span>(<span class="kw">sigmoid</span>(<span class="fl">0.3068528</span>, <span class="dv">1</span>, <span class="fl">1.3591409</span>), <span class="fl">0.5</span>, <span class="dv">10</span><span class="op">^-</span><span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb58-10" data-line-number="10">})</a></code></pre></div>
+<p>This test is a bit more interpretable and delivers a better error message.</p>
+</div>
+<div id="automated-checks-and-automated-testing" class="section level3">
+<h3><span class="header-section-number">5.2.6</span> Automated Checks and Automated Testing</h3>
+<p>Before you <em>build</em> your package, you should <em>check</em> it using the automated check feature in RStudio, which is really wonderful. Running an automated check will ensure your documentation is up to date, check a variety of other parts of your package, and most importantly, it will automatically run all of your unit tests. During and after the check, it will report which tests failed (and which lines of code caused those failures. Even your pakage passes all of its tests, you might still see additional warnings for other reasons, as exemplified below:</p>
+<p><img src="Images/TestSS/autobuildresults.PNG" /></p>
+<p>Although it’s not necessary to understand every check that RStudio runs, it’s worth noting that every check it performs is relatively important, and if RStudio signals any warnings or errors, it’s definitely worth fixing them. It’s also probably worth fixing any “notes” it issues. If you’re curious, you can read more about what each type of check in the automated check does (here)[<a href="http://r-pkgs.had.co.nz/check.html#check" class="uri">http://r-pkgs.had.co.nz/check.html#check</a>].</p>
+</div>
+<div id="bonus-the-goodpractice-package" class="section level3">
+<h3><span class="header-section-number">5.2.7</span> Bonus: The goodpractice Package</h3>
+<p>The aforementioned automated checking system for R is pretty good, but there is a slightly more comprehensive version: the goodpractice package. The goodpractice package has an informative name - the entire purpose of the package is to check whether your package follows proper package development conventions and procedures (i.e. whether your package follows good practices). For example, running the goodpractice package on the devex package yielded the following helpful results:</p>
+<p><img src="Images/TestSS/goodpractice1.PNG" /></p>
+<p>Using the goodpractice package to get a result like that is very simple. If you don’t have RStudio, using goodpractice is well documented in <a href="https://github.com/MangoTheCat/goodpractice/blob/master/vignettes/goodpractice.Rmd">vignettes on Github</a>, and of course all of the source code is available on GitHub and <a href="https://www.rdocumentation.org/packages/goodpractice/versions/1.0.2/source">here</a>. For RStudio users, we’ll through the key points of using goodpractice below.</p>
+<p>To install the goodpractice package, just run the following command in the RStudio console:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;goodpractice&#39;</span>)</a></code></pre></div>
+<p>Once you’ve installed the goodpractice package, you basically only need to know a single function from it: the ‘gp()’ or ‘goodpractice()’ functions (which do exactly the same thing). These functions will run comprehensive automated checks on your package, and take exactly one input, the path of your built package. However, it’s important to note that the path of your <em>built</em> package is not identical to the path of the repo containing it. For example, I work on the ‘devex’ package in “C:/Users/amspe/Documents/R/packageguidelines/devex”, but the built package lives at “C:/Users/amspe/Documents/R/win-library/3.5/devex”. For goodpractice to work, you need to use the paths of the <em>second</em> form, i.e. where the built package lives. If you don’t know this path immediately, you can use the “system.file” function to retrieve it for you, as demonstrated below.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># Retrieve path</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2">package_path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">&#39;devex&#39;</span>)</a>
+<a class="sourceLine" id="cb60-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb60-4" data-line-number="4"><span class="co"># Check package</span></a>
+<a class="sourceLine" id="cb60-5" data-line-number="5"><span class="kw">library</span>(goodpractice)</a>
+<a class="sourceLine" id="cb60-6" data-line-number="6"><span class="kw">gp</span>(package_path)</a></code></pre></div>
+<p>And that’s it! The goodpractice package is a bit picky, so it’s okay to leave a few concerns unresolved, but in general it gives good advice. If you’re very diligent, you might eventually see a result like this:</p>
+<p><img src="Images/TestSS/goodpractice2.PNG" /></p>
+<p>which signals that your package conforms to all goodpractices. Lastly, although it’s beyond the scope of this guide, you ought to know that you can create custom checks using the goodpractice package, as documented <a href="https://github.com/MangoTheCat/goodpractice/blob/master/vignettes/custom_checks.Rmd">here</a>.</p>
+</div>
+</div>
+<div id="integrated-tests" class="section level2">
+<h2><span class="header-section-number">5.3</span> Integrated Tests</h2>
+<div id="motivation-1" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Motivation</h3>
+<p>Up to this point, you probably have not been pushing to GitHub too often. However, in large projects/packages where many programmers are working on the same package at once, it’s important to ensure each programmer continuously commits changes to GitHub to make sure all the changes are compatible with each other. This process of rapid updating of packages is referred to as <em>continuous integration</em>, and it can be very difficult to manage properly (it is sometimes referred to as <em>integration hell</em>, specifically because developers often waste lots of hours trying to make code integrate properly). When you commit changes continuously, it does not guarentee that all the changes will be compatible. However, if there are compatibility problems in updates, it does ensure that you’ll be able to find those problems more easily, because each individual change/commit is smaller.</p>
+<p>For reasons we’ll discuss in a second, continuous integration is a bit easier said than done. Thankfully, there are two wonderful free continuous integration services that will make your life a lot easier. If you’re using windows, you’ll want to use the service called <em>Appveyor</em> - if you’re using Mac or Linux, you’ll want to use the service called <em>Travis CI</em>. These services will make continuous integration easy, specifically because both Appveyor and Travis CI link to GitHub and will run your build and tests for you on what are called virtual machines in the cloud.</p>
+<p>Maybe the principle of continuous integration makes sense, but why are continuous integration services useful? Why can’t each developer build packages, run the tests locally, and then only push changes to GitHub if the tests are successful? There are three answers to this question.</p>
+<ol style="list-style-type: decimal">
+<li>For large projects, it often takes a long time to build them. Being able to build them on the cloud (using Appveyor/Travis) saves an enormous amount of time. (This is especially true for programming languages besides R, but it’s true for R too!)</li>
+<li>Sometimes there may be global environmental settings on your particular computer which change the way the package works and the way tests run. Building and testing the package in a “clean” environment online makes the testing more robust.</li>
+<li>Lastly, CI services offer settings to automatically ‘deploy’ or publish successful builds, for example by publishing code for a website. These are a bit beyond the scope of this guide, but they are documented <a href="https://www.appveyor.com/docs/deployment/">here (Appveyor)</a> and <a href="https://docs.travis-ci.com/user/deployment/">here (Travis)</a>.</li>
+</ol>
+</div>
+<div id="the-integrated-testing-workflow" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> The integrated testing workflow</h3>
+<p>It’s important to note that Travis/Appveyor do not prevent you from pushing bad code to a repo - if you break your package and all your tests fail on Travis/Appveyor, you can still push the broken version to the master branch on GitHub. As a result, most developer teams use the following workflow to keep the master branch working at all times.</p>
+<ol style="list-style-type: decimal">
+<li>Someone sets up a “master repo” with a master branch on GitHub.</li>
+<li>Each developer on the team creates a copy (also called a <em>fork</em>) of the master repo. Thus, each developer has their own repository.</li>
+<li>Each developer makes changes to the project and then pushes those changes to their personal fork. After each push, Appveyor or Travis builds the package and test it.</li>
+<li>If the Appveyor/Travis builds are successful, the developper will likely send a pull request to the master branch of the master repo, which will probably be accepted.</li>
+</ol>
+<p>This workflow allows each developer to make changes in their own repo and continuously build them using Travis/Appveyor without potentially breaking the master repo’s copy.</p>
+</div>
+<div id="setting-up-integrated-tests" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Setting up Integrated Tests</h3>
+<p><strong>Step 1</strong>: To get started using continuous integration services, head to the Travis CI (Linux/Mac OS) or AppVeyor (Windows) website and “sign up”&quot; by signing into GitHub. At some point, Travis/AppVeyor will ask you to authorize its connection to GitHub, which you should authorize.</p>
+<p><strong>Step 2</strong>: Once you authorize the connection, you need to specifically select which repos you’d like to use Travis/AppVeyor with. For example (in AppVeyor), upon signing up, you’ll see something like this screen:</p>
+<p><img src="Images/TestSS/appveyor1.PNG" /></p>
+<p>You should click “new project” and then select the specific repo you’d like to use in combination with Travis/Appveyor. This means that you should at least initialize your project and push it to GitHub before you start using Travis/Appveyor.</p>
+<p><strong>Step 3</strong>: Depending on whether you’re using Appveyor or Travis, you should run devtools::use_appveyor() or devtools::use_travis() in the console with your package open. This will create a file named ‘appveyor.yml’ or ‘travis.yml’ in the root directory of your package. These ‘.yml’ files will tell AppVeyor/Travis what to do. It’s actually not too important to understand everything they do, just because the devtools template generally works pretty well. However, you occasionally will have to modify it to suit specific needs. AppVeyor and Travis CI both have great documentation, linked <a href="https://www.appveyor.com/docs/build-configuration/">here for Appveyor</a> and <a href="https://docs.travis-ci.com/user/languages/r/">here for Travis</a>.</p>
+<p>(Note - devtools also adds ‘appveyor.yml’ and ‘travis.yml’ to the .Rbuildignore to reduce clutter in your package.)</p>
+<p><strong>Step 3.5: Dependency Issues</strong>: If you’re using Travis, it’s important to talk quickly about dependencies in packages. Travis was not originally designed for R projects, so occasionally it’s a bit shaky, specifically with regard to dependencies in packages (i.e. Travis will build your package online, but if your package depends on ggplot2, then Travis have to install ggplot2 before building your package). By default, Travis/Appveyor automatically install anything listed in the dependencies listed in the DESCRIPTION file for your project. However, occasionally something goes wrong. If you get error messages that look like Travis did not install of the dependencies, it’s worth specifying them in the .yml file. You can by adding a line like the following:</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">r_packages<span class="op">:</span><span class="st"> </span>package_name</a></code></pre></div>
+<p>in the .yml file (this will install the package the same way that RStudio installs it when you run ‘install.packages’). If you’d like to install a package using a different method (i.e. from a GitHub version of the package), there are lots of options listed in the <a href="https://docs.travis-ci.com/user/languages/r/">R-specific Travis documentation</a>. However, it’s important to remember that this is generally NOT necessary - Travis/Appveyor do a pretty good job of automatically detecting/installing dependencies as long as your DESCRIPTION file specifies them.</p>
+<p><strong>Step 4</strong>: If you are working with many other developers on a single package, you should also add a ‘.gitattributes’ file into the root of your directory. This is because different operating systems handle different characters, for example line terminators, slightly differently. Modern Mac and Unix/Linux systems use ‘<span class="math inline">\(\n\)</span>’ to terminate the end of each line, in what is called the “line feed” or “LF” system, whereas Windows uses ‘<span class="math inline">\(\r\n\)</span>’ in the ‘Carriage Return Line Feed’ or CRLF system. The point is that the ‘.gitattributes’ file will ensure that each developer uses exactly the same line endings, because you can set the ‘text’ setting which controls the method of writing lineterminators.</p>
+<p>The way it works is that the ‘.gitattribute’ file should be a line of path-patterns followed by specific attributes. These path-patterns (for a refresher, see the Atlanian guide <a href="https://www.atlassian.com/git/tutorials/saving-changes/gitignore">here</a>) are exactly the same path-patterns used in the .gitignore file, just for a different purpose. For example, one line might be</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="op">*</span><span class="st"> </span>text=auto</a></code></pre></div>
+<p>where the &quot;*&quot; refers to all files in the root directory, and the ‘text=auto’ sets the ‘text’ attribute to auto. Alternatively, you could write</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">R<span class="op">/</span><span class="er">*</span><span class="st"> </span>text=lf</a></code></pre></div>
+<p>which forces all the scripts directly in the R subdirectory to use the ‘lf’ line terminator. You can personalize the gitattributes file if you like, but you can also just use the sample .gitattributes linked <a href="https://GitHub.com/krlmlr/r-appveyor/blob/master/.gitattributes">here</a>. You can download this file and move it to the root directory of your package (it must be in the root directory).</p>
+<p>The git attributes file actually is useful for setting a variety of other attributes besides line endings, although some of them are a bit technical. If you’re curious to find out more about what the .gitattributes file can do, the full documentation is linked <a href="https://git-scm.com/docs/gitattributes">here</a>.</p>
+<p>Once you do all of this, you’re set to go! When you push changes to GitHub, Travis/AppVeyor will automatically build and test the package for you. For example on Appveyor, if you sign in, you should see something like this:</p>
+<p><img src="Images/TestSS/appveyor2.PNG" /></p>
+<p>and if your build succeeded, you’ll see a green line at the bottom like this:</p>
+<p><img src="Images/TestSS/appveyor3.PNG" /></p>
+<p>otherwise you’ll see an error. If your build takes a while, that’s okay - you don’t need to wait for it to build, because Travis/Appveyor will email you automatically if the test fails. And that’s all there is to it!</p>
+</div>
+</div>
+<div id="tips-and-tricks-2" class="section level2">
+<h2><span class="header-section-number">5.4</span> Tips and Tricks</h2>
+<p>When testing, there are a couple of key principles to keep in mind:</p>
+<ol style="list-style-type: decimal">
+<li>You want to expose bugs as quickly as possible so they don’t create even larger headaches down the road! As Christopher Gandrud puts it, testing is all about ‘failing faster.’ To this end, you should continuously test your packages.</li>
+<li>Make sure your tests <em>cover</em> the package code and also test all of the key functionality of the package. In an ideal world, a package should pass all of its tests only if all of its core functionality is bug-free.</li>
+<li>Test names, organization, and error messages must be descriptive and easy to understand. One of the main purposes of tests is to inform you <em>where</em> your code is failing, and to understand that, you need informative error messages. Otherwise, you will find yourself spending hours traversing your code to find bugs.</li>
+</ol>
+<p>The devtools cheatsheet, linked <a href="https://www.rstudio.com/wp-content/uploads/2015/03/devtools-cheatsheet.pdf">here</a>, references a lot of the key components of the testthat package.</p>
+<p>Lastly, working with .yml files can occasionally be difficult, although devtools should make it pretty to set up in the broad majority of cases. As always, when you run into errors, make full use of stackexchange and online resources provided by AppVeyor/Travis.</p>
+</div>
+<div id="sources-cited-1" class="section level2">
+<h2><span class="header-section-number">5.5</span> Sources cited</h2>
+<p>We used the Testing chapter of <a href="http://r-pkgs.had.co.nz/tests.html">R Packages by Hadley Wickham</a>, <a href="http://slides.com/christophergandrud/failing-faster#/24">Christopher Gandrud’s ‘Failing Faster’ Presentation</a>, and <a href="https://github.com/IQSS/social_science_software_toolkit/blob/master/testing/recommended_testing_tools_R.md#recommended-testing-tools-and-process-for-r-packages">Christopher Gandrud’s Broader Testing Guidelines</a> to help write this particular page of the guide.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="package-structure.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
