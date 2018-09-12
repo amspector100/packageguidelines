@@ -164,8 +164,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.6" data-path="github.html"><a href="github.html#conflicts"><i class="fa fa-check"></i><b>3.3.6</b> Conflicts</a></li>
 <li class="chapter" data-level="3.3.7" data-path="github.html"><a href="github.html#tips-and-tricks"><i class="fa fa-check"></i><b>3.3.7</b> Tips and Tricks</a></li>
 <li class="chapter" data-level="3.3.8" data-path="github.html"><a href="github.html#cheat-sheats"><i class="fa fa-check"></i><b>3.3.8</b> Cheat sheats</a></li>
+<li class="chapter" data-level="3.3.9" data-path="github.html"><a href="github.html#optional-suggested-workflow"><i class="fa fa-check"></i><b>3.3.9</b> Optional: Suggested Workflow</a></li>
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="github.html"><a href="github.html#further-reading"><i class="fa fa-check"></i><b>3.4</b> Further reading</a></li>
+<li class="chapter" data-level="3.5" data-path="github.html"><a href="github.html#sources-cited"><i class="fa fa-check"></i><b>3.5</b> Sources cited</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="package-structure.html"><a href="package-structure.html"><i class="fa fa-check"></i><b>4</b> Package Structure</a><ul>
 <li class="chapter" data-level="4.1" data-path="package-structure.html"><a href="package-structure.html#motivation"><i class="fa fa-check"></i><b>4.1</b> Motivation</a></li>
@@ -186,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.7" data-path="package-structure.html"><a href="package-structure.html#building-your-package"><i class="fa fa-check"></i><b>4.3.7</b> Building Your Package</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="package-structure.html"><a href="package-structure.html#tips-and-tricks-1"><i class="fa fa-check"></i><b>4.4</b> Tips and Tricks</a></li>
-<li class="chapter" data-level="4.5" data-path="package-structure.html"><a href="package-structure.html#sources-cited"><i class="fa fa-check"></i><b>4.5</b> Sources cited:</a></li>
+<li class="chapter" data-level="4.5" data-path="package-structure.html"><a href="package-structure.html#sources-cited-1"><i class="fa fa-check"></i><b>4.5</b> Sources cited:</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>5</b> Testing</a><ul>
 <li class="chapter" data-level="5.1" data-path="testing.html"><a href="testing.html#why-should-you-test"><i class="fa fa-check"></i><b>5.1</b> Why should you test?</a></li>
@@ -205,7 +207,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.3" data-path="testing.html"><a href="testing.html#setting-up-integrated-tests"><i class="fa fa-check"></i><b>5.3.3</b> Setting up Integrated Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="testing.html"><a href="testing.html#tips-and-tricks-2"><i class="fa fa-check"></i><b>5.4</b> Tips and Tricks</a></li>
-<li class="chapter" data-level="5.5" data-path="testing.html"><a href="testing.html#sources-cited-1"><i class="fa fa-check"></i><b>5.5</b> Sources cited</a></li>
+<li class="chapter" data-level="5.5" data-path="testing.html"><a href="testing.html#sources-cited-2"><i class="fa fa-check"></i><b>5.5</b> Sources cited</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a><ul>
 <li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#advanced-tools-for-r"><i class="fa fa-check"></i><b>6.1</b> Advanced tools for R</a></li>
@@ -475,6 +477,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><a href="https://services.GitHub.com/on-demand/downloads/GitHub-git-cheat-sheet.pdf">This official GitHub cheat sheet</a> lists all of the general commands you’ll need</p></li>
 </ul>
 </div>
+<div id="optional-suggested-workflow" class="section level3">
+<h3><span class="header-section-number">3.3.9</span> Optional: Suggested Workflow</h3>
+<p>There are many ways to use Git, but <a href="https://nvie.com/posts/a-successful-git-branching-model/">this article by Vincent Driessen</a> describes a pretty intuitive and productive model for Git branching. It’s worth reading or skimming the article (it includes some great graphics), but it basically involves a couple of core kinds of branches:</p>
+<ul>
+<li>The <strong>master</strong> branch is only used for new releases of a package/software.</li>
+<li>There are <strong>hotfixes</strong> branches which are used to fix relatively important bugs on releases.</li>
+<li>The <strong>development</strong> branch is the central branch on which most of the development happens; i.e. fixing minor bugs and adding new features between releases.</li>
+<li>There are <strong>feature branches</strong> which are used to develop new features between releases, which are periodically updated with the development branch.</li>
+<li>Finally, there are <strong>release branches</strong> which are used exclusively to fix bugs pre-release.</li>
+</ul>
+<p>Here’s an illustration of the core model which Driessen made:</p>
+<p><img src="Images/gitflow-model.png" /></p>
+</div>
 </div>
 <div id="further-reading" class="section level2">
 <h2><span class="header-section-number">3.4</span> Further reading</h2>
@@ -483,7 +498,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>The Software Carpentry Foundation has a great mid level Git tutorial <a href="https://swcarpentry.GitHub.io/git-novice/">here</a></p></li>
 <li><p>Atlassian has some wonderful advanced Git tutorials <a href="https://www.atlassian.com/git/tutorials/advanced-overview">here</a></p></li>
 </ul>
-<p>##Sources cited</p>
+</div>
+<div id="sources-cited" class="section level2">
+<h2><span class="header-section-number">3.5</span> Sources cited</h2>
 <p>We used <a href="http://kbroman.org/GitHub_tutorial/pages/init.html">Karl Broma’s Book</a>, a <a href="https://www.git-tower.com/learn/git/faq/restore-repo-to-previous-revision">Git-Tower post</a>, and the GitHub documentation <a href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics">here</a> and <a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">here</a> to help write this guide.</p>
 
 </div>
