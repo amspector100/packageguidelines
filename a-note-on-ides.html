@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="package-development.html">
+<link rel="prev" href="version-control.html">
+<link rel="next" href="resources.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -228,41 +228,138 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Package Development in R</h1>
-<h4 class="author"><em>Asher Spector</em></h4>
-<h4 class="date"><em>August 31, 2018</em></h4>
-</div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<div id="what-is-a-package" class="section level2">
-<h2><span class="header-section-number">1.1</span> What is a package?</h2>
-<p>Let’s say you wrote a script like this in R and wanted to make it easy for others to use.</p>
-<div class="figure">
-<img src="Images/badexample.PNG" alt="This is not what packages should look like" />
-<p class="caption"><em>This is not what packages should look like</em></p>
-</div>
-<p>As you can probably tell, other users may not understand exactly what this script is supposed to do and how to use it. Even if they take the time to read through the source code and eventually figure it out, it might have been faster for them to just write the functions themselves. Packages solve this problem. Loosely speaking, <em>packages</em> are structured collections of code which aim to make your code easily sharable and reproducible. For example, any good package includes <em>documentation</em> which describes its functionality and use. Developing packages can be painstaking, but thankfully there are lots of tools today which make it extremely simple to create robust packages. This guide aims to run through how to use those tools and develop packages in R.</p>
-</div>
-<div id="table-of-contents" class="section level2">
-<h2><span class="header-section-number">1.2</span> Table of Contents</h2>
-<p>This guide is organized into three parts.</p>
+<div id="a-note-on-ides" class="section level1">
+<h1><span class="header-section-number">4</span> A Note on IDEs</h1>
+<div id="general-suggestions" class="section level2">
+<h2><span class="header-section-number">4.1</span> General Suggestions</h2>
+<p>An IDE is simply a piece of software which aims to make it easier to write and work with packages (IDE stands for integrated development environment). If you’re reading this guide, you’ll probably spend a decent amount of time writing packages, so we thought it’d be helpful to review a couple of different IDEs.</p>
+<p>Broadly, there are two kinds of IDEs.</p>
 <ol style="list-style-type: decimal">
-<li>First, we’ll run through <a href="./package-development.html">The proper way to structure and test packages</a>.</li>
-<li>Second, we’ll discuss <a href="./version-control.html">Version Control with Git and Github</a></li>
-<li>Lastly, we’ll <a href="./a-note-on-ides.html">briefly look at a couple of IDEs</a>, which are just pieces of software that make it easier to write packages.</li>
+<li>Some IDEs are <strong>language agnostic</strong>, meaning that they support any programming language you care to program in. Language-agnostic IDEs are nice because (a) if you use one, you won’t have to switch IDEs every time you use a different programming language, and (b) because you can write packages in multiple languages in them.</li>
+<li>On the other hand, some IDEs are <strong>language specific</strong> in that they are built for certain languages. Language specific IDEs can be useful because they have a host of speciailized features for their specific language.</li>
 </ol>
-<p>We also wrote a small development example package (called ‘devex’) which you can find linked <a href="https://github.com/amspector100/packageguidelines/tree/master/devex">here, on GitHub</a>. If you haven’t used GitHub yet, don’t worry - we’ll go over how to use GitHub later.</p>
-<p>Also, this guide is still under development, and we take feedback! If you find anything confusing or think the guide misses important contant, please email <a href="mailto:amspector100@gmail.com">amspector100@gmail.com</a>.</p>
+<p>There are lots of different IDEs available for R users. Common language agnostic choices include <a href="https://github.com/jupyterlab">JupyterLab</a>, <a href="https://www.gnu.org/software/emacs/">emacs</a> and <a href="http://aquamacs.org/">aquamacs</a>, and even <a href="http://www.kevjohnson.org/using-r-in-sublime-text-3/">Sublime Text 3</a>. However, RStudio is probably the most common and beginner-friendly IDE for R Users, so we’ll focus on RStudio.</p>
 </div>
-<div id="are-there-prerequesites" class="section level2">
-<h2><span class="header-section-number">1.3</span> Are There Prerequesites?</h2>
-<p>Almost none! You don’t need to know anything about package structure or GitHub. However, this guide does assume you know how to do some programming in R. For example, if you want to develop a package which downloads and analyzes the content of politicians’ tweets, this guide will help you structure your code, but it won’t teach you how to scrape Twitter.</p>
+<div id="rstudio" class="section level2">
+<h2><span class="header-section-number">4.2</span> RStudio</h2>
+<p>RStudio is a language-specific IDE built for R, although it does support plenty of other languages.</p>
+<div id="why-use-rstudio" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Why use RStudio?</h3>
+<p>RStudio integrates documentation, makes graphics more accessible, and also combines beautifully with devtools to make it easy to write packages. We’ll look at two concrete examples: initializing
+### Setting up RStudio</p>
+<div id="setting-up-r" class="section level4">
+<h4><span class="header-section-number">4.2.1.1</span> Setting up R</h4>
+<p>Presumably you’ve already been working with R, but you should make sure you have a recent enough version of R intalled. To do so, type “R.Version()” into the editor you’ve been working with previously. It should return an output titled “<span class="math inline">\(version.string\)</span>”, for example:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">R.Version</span>()</a></code></pre></div>
+<pre><code>## $platform
+## [1] &quot;x86_64-w64-mingw32&quot;
+## 
+## $arch
+## [1] &quot;x86_64&quot;
+## 
+## $os
+## [1] &quot;mingw32&quot;
+## 
+## $system
+## [1] &quot;x86_64, mingw32&quot;
+## 
+## $status
+## [1] &quot;&quot;
+## 
+## $major
+## [1] &quot;3&quot;
+## 
+## $minor
+## [1] &quot;5.0&quot;
+## 
+## $year
+## [1] &quot;2018&quot;
+## 
+## $month
+## [1] &quot;04&quot;
+## 
+## $day
+## [1] &quot;23&quot;
+## 
+## $`svn rev`
+## [1] &quot;74626&quot;
+## 
+## $language
+## [1] &quot;R&quot;
+## 
+## $version.string
+## [1] &quot;R version 3.5.0 (2018-04-23)&quot;
+## 
+## $nickname
+## [1] &quot;Joy in Playing&quot;</code></pre>
+<p>If the number after the R version string is anything lower than 3.0.1, you’ll have to install a new version of R in order to use R Studio. To do so, follow the steps below:</p>
+<ol style="list-style-type: decimal">
+<li><p>Go to <a href="https://cran.rstudio.com/" class="uri">https://cran.rstudio.com/</a> and select “Download R for [Your Operating System].”</p></li>
+<li><p>Click “base” and click “Download R [latest version] for [Your Operating System]” at the top of the page.</p></li>
+<li><p>You can then let the installer run itself - the default settings should be fine for our purposes.</p></li>
+</ol>
+<p>Lastly, updating R on Windows can be a bit tricky. If you use Windows, you can also use the installr package to quickly update R, as documented <a href="https://www.r-statistics.com/2015/06/a-step-by-step-screenshots-tutorial-for-upgrading-r-on-windows/">here</a>. However, if you are having trouble installing the installr package, you can always just follow the instructions above.</p>
 </div>
-<div id="sources" class="section level2">
-<h2><span class="header-section-number">1.4</span> Sources</h2>
-<p>It’s worth acknowledging a couple of people who helped make this guide possible. First of all, Simo Goshev and Steve Worthington at the IQSS helped design the structure of the guide and edited the content. Second, this guide was written for a different audience, but a lot of its structure and content is based on Hadley Wickham’s book <a href="http://r-pkgs.had.co.nz/">R Packages</a>. To help write the sections on testing, we also referenced <a href="http://slides.com/christophergandrud/failing-faster#/24">Christopher Gandrud’s ‘Failing Faster’ Presentation</a>, and <a href="https://github.com/IQSS/social_science_software_toolkit/blob/master/testing/recommended_testing_tools_R.md#recommended-testing-tools-and-process-for-r-packages">Christopher Gandrud’s Broader Testing Guidelines</a>. For the section on on Version Control, we referenced <a href="http://kbroman.org/GitHub_tutorial/pages/init.html">Karl Broma’s Book</a>, a <a href="https://www.git-tower.com/learn/git/faq/restore-repo-to-previous-revision">Git-Tower post</a>, and the GitHub documentation <a href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics">here</a> and <a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">here</a> to help write this guide.</p>
+<div id="setting-up-rstudio" class="section level4">
+<h4><span class="header-section-number">4.2.1.2</span> Setting up RStudio</h4>
+<p>To download and set up RStudio, follow the instructions below:</p>
+<ol style="list-style-type: decimal">
+<li><p>Head to <a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a> and click “download” for the free RStudio Desktop version</p></li>
+<li><p>Download the <em>installer</em> for your operating system, not the <em>zip/tarball.</em> The picture below illustrates what the webpage should look like.</p></li>
+</ol>
+<div class="figure">
+<img src="Images/rstudio.PNG" alt="RStudio Webpage" />
+<p class="caption"><em>RStudio Webpage</em></p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Let the installer run - it’s fine again to just use the default options.</li>
+</ol>
+<p>and now you’re ready!</p>
+</div>
+</div>
+<div id="getting-started" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Getting Started</h3>
+<div id="screen-breakdown" class="section level4">
+<h4><span class="header-section-number">4.2.2.1</span> Screen Breakdown</h4>
+<p>RStudio will split your screen into four parts, as shown below. We’ll refer to them as the <em>script</em>, the <em>environment</em>, the <em>shell</em> or <em>console</em>, and the <em>Viewer.</em></p>
+<div class="figure">
+<img src="Images/rstudio2.PNG" alt="The RStudio Interface" />
+<p class="caption">The RStudio Interface</p>
+</div>
+<p>The <em>script</em> is in the upper left hand corner of the screen, and it’s where you will do the bulk of your programming. To write an R script, click File&gt;New File&gt;R Script in the top left hand corner. You can execute multiple lines of a script (or the entire thing) at a time by selecting the lines you want to run and clicking the green “Run” button on the right hand side of the script box.</p>
+<p>The <em>console</em> or <em>shell</em> is in the lower left hand corner of the screen. Unlike scripts, which presumably you’ve worked with before, shells only run one line of code at a time. However, shells also remember what you did before. For example, if you define download some data into the shell, you can manipulate it repeatedly without having to download it again before each manipulation - it will stay in the shell’s memory until you manually remove it.</p>
+<p>All scripts that you run will be run through the shell. This means that you can run a script and manipulate the results directly from the bottom of the shell, without having to rerun the script each time you want to manipulate the results. You can also directly access the command prompt for your computer through the shell by clicking the “terminal” option.</p>
+<p>Note that any errors thrown by your code will show up in the shell. To clear the console, hit Ctrl+L.</p>
+<p>On the upper right hand corner of the screen, you can see the <em>environment</em> you’re working in, which lists all the objects in the shell’s “memory” or <em>namespace.</em> For example, if you download some data in a script and then run the script, the data will show up in the right hand corner of the screen.</p>
+<p>On the bottom right hand side is the <em>Viewer.</em> Any plots you generate in R will automatically show up there. Additionally, as we’ll discuss later, documentation of functions and packages will appear in the right hand corner. You can also use it to see the file structure of your working directory and the packages you’re using by clicking “files” or “packages.”&quot;</p>
+</div>
+</div>
+<div id="ex-initializing-packages" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Ex: Initializing Packages</h3>
+<p>RStudio makes it easy to create packages. To start, click File&gt;New Project. Then, click “New Directory” when you see the screen below:</p>
+<p><img src="Images/PackageSS/createproj1.PNG" /></p>
+<p>Then click “R Package” when you see the screen below:</p>
+<p><img src="Images/PackageSS/createproj2.PNG" /></p>
+<p>Lastly, name your package. Your name should be something short and descriptive. Since we’ll be walking through a development example, we’ll title our new package “devex.”</p>
+<p><img src="Images/PackageSS/createproj3.PNG" /></p>
+<p>Once you’ve created your package, your RStudio should look something like this. It should come preloaded with a “Hello World” script which includes a handy function that prints “Hello world.”</p>
+<p><img src="Images/PackageSS/projectinit.PNG" /></p>
+<p>Everything should look mostly the same as normal except for the “Files” tab on the bottom right, which should include an “.Rproj” file, a “DESCRIPTION” file, a “NAMESPACE” file, and a folder titled “R.” You should start by checking the little boxes next to the “NAMESPACE” file and the “Hello.R” R script inside the R file and clicking “delete” above them, just because we will have Roxygen2 automatically generate the namespace, and because presumably your package doesn’t need a “Hello World” function.</p>
+<p>You should also go to “Tools &gt; Project Options” and select the following options, which will help you generate documentation using roxygen2:</p>
+<p><img src="Images/PackageSS/userox.PNG" /></p>
+</div>
+<div id="ex-building-packages" class="section level3">
+<h3><span class="header-section-number">4.2.4</span> Ex: Building Packages</h3>
+<p>RStudio will build your package a little bit more conveniently than the devtools::build() function will. Whereas the devtools::build() function, without extra arguments, will simply bundle your package into one file, building your package from RStudio will actually install it into your R library, allowing you to easily use the finished version.</p>
+<p>The way to do this is to go to Build &gt; Install and Restart, and then RStudio will build your package, restart, and load your package into R (using the library command). Then, you can use and/or play with your package!</p>
+<!-- 
+Specifically, you should go to Build > Check Package.
 
+Upon checking the package, RStudio will tell you if there are any warnings or errors raised by its automatic checking process. For example, it might tell you that a piece of documentation mismatches its complimentary function, or that the package needs an extra dependence. It's best to fix all of the problems RStudio points out, whether they are warnings or errors. 
+-->
+<p>(If you don’t see any options under Build, you probably need to open your .Rproj file in the “file” section of RStudio. Upon doing this, RStudio should restart briefly and then you will see more Build options).</p>
+
+</div>
 </div>
 </div>
             </section>
@@ -270,8 +367,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="package-development.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="version-control.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="resources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

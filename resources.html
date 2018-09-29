@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="a-note-on-ides.html">
 
-<link rel="next" href="package-development.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -228,40 +228,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Package Development in R</h1>
-<h4 class="author"><em>Asher Spector</em></h4>
-<h4 class="date"><em>August 31, 2018</em></h4>
+<div id="resources" class="section level1">
+<h1><span class="header-section-number">5</span> Resources</h1>
+<div id="general" class="section level2">
+<h2><span class="header-section-number">5.1</span> General</h2>
+<ul>
+<li><a href="https://www.rstudio.com/resources/cheatsheets/">This link</a> contains a number of truly fantastic cheat sheets, documenting everything from RStudio itself to data visualization and machine learning.</li>
+<li>To read more about using R, <a href="http://adv-r.had.co.nz/">take a look at the following website, built by Chapman and Hall</a></li>
+<li>As always, it’s worth referencing stackexchange if you’re ever confused.
+<!--
+- A list of useful packages can be found [here](https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages). 
+--></li>
+</ul>
 </div>
-<div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
-<div id="what-is-a-package" class="section level2">
-<h2><span class="header-section-number">1.1</span> What is a package?</h2>
-<p>Let’s say you wrote a script like this in R and wanted to make it easy for others to use.</p>
-<div class="figure">
-<img src="Images/badexample.PNG" alt="This is not what packages should look like" />
-<p class="caption"><em>This is not what packages should look like</em></p>
+<div id="package-development-1" class="section level2">
+<h2><span class="header-section-number">5.2</span> Package Development</h2>
+<ul>
+<li>There’s a wonderful cheat sheet for package development linked <a href="https://www.rstudio.com/wp-content/uploads/2015/06/devtools-cheatsheet.pdf">here</a>. This also describes a lot of key components of the testthat package.</li>
+<li>If you are looking for a very simple example of a package, the <a href="https://github.com/amspector100/packageguidelines/tree/master/devex">devex package</a> can be found here. If you’re having trouble understanding the workflow for package development, it’s worth looking through the devex package and making sure you understand all its components. Better yet, you can practice using roxygen2 and devtools by creating a very small/useless package (2-3 simple functions)</li>
+<li>It can sometimes be instructive to look through the <a href="https://www.rdocumentation.org/packages/devtools/versions/1.13.3/source">source code</a> and <a href="https://www.rdocumentation.org/packages/devtools/versions/1.13.3">documentation</a> for devtools.</li>
+</ul>
+<p>Additionally, as you build larger and more complex packages, you might need a deeper understanding of package structure. For a slightly more in-depth explanation of package development, you’ll want to reference Hadley Wickham’s <a href="http://r-pkgs.had.co.nz/">R Packages</a>. For a serious dive into package mechanics, you should consult the official <a href="https://cran.r-project.org/doc/manuals/R-exts.html#Creating-R-packages">R Extensions Manual</a>, which is published by CRAN. However, at least for mid-sized packages, this guide probably has given you most of what you need to know.</p>
 </div>
-<p>As you can probably tell, other users may not understand exactly what this script is supposed to do and how to use it. Even if they take the time to read through the source code and eventually figure it out, it might have been faster for them to just write the functions themselves. Packages solve this problem. Loosely speaking, <em>packages</em> are structured collections of code which aim to make your code easily sharable and reproducible. For example, any good package includes <em>documentation</em> which describes its functionality and use. Developing packages can be painstaking, but thankfully there are lots of tools today which make it extremely simple to create robust packages. This guide aims to run through how to use those tools and develop packages in R.</p>
+<div id="version-control-1" class="section level2">
+<h2><span class="header-section-number">5.3</span> Version Control</h2>
+<ul>
+<li><a href="https://services.GitHub.com/on-demand/downloads/GitHub-git-cheat-sheet.pdf">The official GitHub cheat sheet</a> lists all of the general commands you’ll need</li>
+<li><a href="http://kbroman.org/GitHub_tutorial/pages/init.html">Karl Broman’s tutorial</a> runs you through initializing a repository</li>
+<li>Atlassian’s table of the .gitignore syntactical rules is listed <a href="https://www.atlassian.com/git/tutorials/gitignore">here</a>.</li>
+<li>Here are the links to the build congfiguration docs for <a href="https://www.appveyor.com/docs/build-configuration/">Appveyor</a> and <a href="https://docs.travis-ci.com/user/languages/r/">Travis</a>.</li>
+</ul>
+<p>If you’re interested in reading more:</p>
+<ul>
+<li>The Software Carpentry Foundation has a great mid level Git tutorial <a href="https://swcarpentry.GitHub.io/git-novice/">here</a></li>
+<li>Atlassian has some wonderful advanced Git tutorials <a href="https://www.atlassian.com/git/tutorials/advanced-overview">here</a></li>
+</ul>
 </div>
-<div id="table-of-contents" class="section level2">
-<h2><span class="header-section-number">1.2</span> Table of Contents</h2>
-<p>This guide is organized into three parts.</p>
-<ol style="list-style-type: decimal">
-<li>First, we’ll run through <a href="./package-development.html">The proper way to structure and test packages</a>.</li>
-<li>Second, we’ll discuss <a href="./version-control.html">Version Control with Git and Github</a></li>
-<li>Lastly, we’ll <a href="./a-note-on-ides.html">briefly look at a couple of IDEs</a>, which are just pieces of software that make it easier to write packages.</li>
-</ol>
-<p>We also wrote a small development example package (called ‘devex’) which you can find linked <a href="https://github.com/amspector100/packageguidelines/tree/master/devex">here, on GitHub</a>. If you haven’t used GitHub yet, don’t worry - we’ll go over how to use GitHub later.</p>
-<p>Also, this guide is still under development, and we take feedback! If you find anything confusing or think the guide misses important contant, please email <a href="mailto:amspector100@gmail.com">amspector100@gmail.com</a>.</p>
-</div>
-<div id="are-there-prerequesites" class="section level2">
-<h2><span class="header-section-number">1.3</span> Are There Prerequesites?</h2>
-<p>Almost none! You don’t need to know anything about package structure or GitHub. However, this guide does assume you know how to do some programming in R. For example, if you want to develop a package which downloads and analyzes the content of politicians’ tweets, this guide will help you structure your code, but it won’t teach you how to scrape Twitter.</p>
-</div>
-<div id="sources" class="section level2">
-<h2><span class="header-section-number">1.4</span> Sources</h2>
-<p>It’s worth acknowledging a couple of people who helped make this guide possible. First of all, Simo Goshev and Steve Worthington at the IQSS helped design the structure of the guide and edited the content. Second, this guide was written for a different audience, but a lot of its structure and content is based on Hadley Wickham’s book <a href="http://r-pkgs.had.co.nz/">R Packages</a>. To help write the sections on testing, we also referenced <a href="http://slides.com/christophergandrud/failing-faster#/24">Christopher Gandrud’s ‘Failing Faster’ Presentation</a>, and <a href="https://github.com/IQSS/social_science_software_toolkit/blob/master/testing/recommended_testing_tools_R.md#recommended-testing-tools-and-process-for-r-packages">Christopher Gandrud’s Broader Testing Guidelines</a>. For the section on on Version Control, we referenced <a href="http://kbroman.org/GitHub_tutorial/pages/init.html">Karl Broma’s Book</a>, a <a href="https://www.git-tower.com/learn/git/faq/restore-repo-to-previous-revision">Git-Tower post</a>, and the GitHub documentation <a href="https://git-scm.com/book/en/v2/Getting-Started-Git-Basics">here</a> and <a href="https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup">here</a> to help write this guide.</p>
+<div id="ides" class="section level2">
+<h2><span class="header-section-number">5.4</span> IDEs</h2>
+<ul>
+<li><a href="https://www.theanalysisfactor.com/the-advantages-of-rstudio/">This page</a> lists some more of RStudio’s advantages.</li>
+</ul>
 
 </div>
 </div>
@@ -270,8 +277,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
+<a href="a-note-on-ides.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="package-development.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
