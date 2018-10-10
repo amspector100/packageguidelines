@@ -160,8 +160,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.8.2" data-path="package-development.html"><a href="package-development.html#including-data-for-your-functions"><i class="fa fa-check"></i><b>2.8.2</b> Including data for your functions</a></li>
 </ul></li>
 <li class="chapter" data-level="2.9" data-path="package-development.html"><a href="package-development.html#releasing-your-package"><i class="fa fa-check"></i><b>2.9</b> Releasing Your Package</a><ul>
-<li class="chapter" data-level="2.9.1" data-path="package-development.html"><a href="package-development.html#building"><i class="fa fa-check"></i><b>2.9.1</b> Building</a></li>
-<li class="chapter" data-level="2.9.2" data-path="package-development.html"><a href="package-development.html#releasing"><i class="fa fa-check"></i><b>2.9.2</b> Releasing</a></li>
+<li class="chapter" data-level="2.9.1" data-path="package-development.html"><a href="package-development.html#pushing-to-github"><i class="fa fa-check"></i><b>2.9.1</b> Pushing to GitHub</a></li>
+<li class="chapter" data-level="2.9.2" data-path="package-development.html"><a href="package-development.html#cran"><i class="fa fa-check"></i><b>2.9.2</b> CRAN</a></li>
 <li class="chapter" data-level="2.9.3" data-path="package-development.html"><a href="package-development.html#publicizing"><i class="fa fa-check"></i><b>2.9.3</b> Publicizing</a></li>
 </ul></li>
 <li class="chapter" data-level="2.10" data-path="package-development.html"><a href="package-development.html#tips-and-tricks-1"><i class="fa fa-check"></i><b>2.10</b> Tips and Tricks</a></li>
@@ -804,34 +804,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="releasing-your-package" class="section level2">
 <h2><span class="header-section-number">2.9</span> Releasing Your Package</h2>
-<p>You’re almost done at this point! You’ve written your functions, modified the description, documented your functions, presumably exported some of them, and hopefully tested all of them; you’re now ready to <em>build</em>, <em>release</em>, and <em>publicize</em> your package.</p>
-<div id="building" class="section level3">
-<h3><span class="header-section-number">2.9.1</span> Building</h3>
-<p>Building your package means bundling it into a format that is easy to distribute and easy for users to install; there are a two main ways to do this.</p>
-<div id="building-.tar.gz-files" class="section level4">
-<h4><span class="header-section-number">2.9.1.1</span> Building .tar.gz files</h4>
-<p>One of the most common ways to build your package is to zip it package as either .tar.gz file. Devtools will do this for you if you run the following command:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">build</span>(<span class="dt">binary =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p>Tar.gz files are useful because anyone who has a working R development environment can install and unzip your package, regardless of their operating system.</p>
-</div>
-<div id="building-precompiled-binaries" class="section level4">
-<h4><span class="header-section-number">2.9.1.2</span> Building precompiled binaries</h4>
-<p>Another way to build your package is as a precompiled binary file. Precompiled binaries are useful because unlike Tar.gz files, they do not require a development environment to install. However, they are platform specific: a precompiled binary built by a Windows machine can’t be installed on Mac machine. There are advantages to precompiled binaries, but most likely, you’ll want to use a Tar.gz file instead. if you do want to build a binary, you can just change an argument of devtools::build:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">build</span>(<span class="dt">binary =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-</div>
-</div>
-<div id="releasing" class="section level3">
-<h3><span class="header-section-number">2.9.2</span> Releasing</h3>
-<p>Once you’ve built your package, there’s a couple of ways to release it to the broader R community.</p>
-<div id="pushing-to-github" class="section level4">
-<h4><span class="header-section-number">2.9.2.1</span> Pushing to GitHub</h4>
+<p>You’re almost done at this point! You’ve written your functions, modified the description, documented your functions, presumably exported some of them, and hopefully tested all of them; you’re now ready to <em>release</em> and <em>publicize</em> your package. There are basically two main ways to do this.</p>
+<div id="pushing-to-github" class="section level3">
+<h3><span class="header-section-number">2.9.1</span> Pushing to GitHub</h3>
 <p>The easiest way to publish your package is to simply <a href=".\version-control">push it to GitHub</a>, (we’ll discuss how to do this later). The pros of this approach are that it makes it very easy for users to download your package - they can literally do it in one line. Additionally, Github offers free services <a href="https://pages.github.com/">to host a website for your package and its documentation</a>, and most importantly, it’s very easy for <strong>you</strong> to publish your package this way. Thus, pushing to Github is sort of the “default” way to publish a smaller package.</p>
 </div>
-<div id="cran" class="section level4">
-<h4><span class="header-section-number">2.9.2.2</span> CRAN</h4>
+<div id="cran" class="section level3">
+<h3><span class="header-section-number">2.9.2</span> CRAN</h3>
 <p>On the other hand, if you’ve written a larger package which you would like to distribute to the entire R community, you might consider submitting it to <a href="https://cran.r-project.org/">CRAN</a>, the Comprehensive R Archive Network. CRAN is basically the official package authority designated by the R community, and successfully adding your package to CRAN will make it more legitimate as well as easier for R users to find and install.</p>
-<p>The actual act of submitting to CRAN seems rather simple: you need to simply build your package into a .tar.gz file and submit the bundled file to CRAN <a href="https://cran.r-project.org/submit.html">here</a>, along with a couple of comments. However, in actuality, CRAN has very high standards for packages, so it can be rather tricky to get a package accepted. CRAN’s specific standards are a bit beyond the scope of the current iteration of this guide, but if you decide you want to publish a package on CRAN, you should read <a href="http://r-pkgs.had.co.nz/release.html">Hadley Wickham’s advice on the subject</a> <strong>very carefully.</strong></p>
-<p><a href="http://r-pkgs.had.co.nz/release.html" class="uri">http://r-pkgs.had.co.nz/release.html</a></p>
+<p>Logistically, submitting your package to CRAN is pretty simple. The first step is to <strong>build</strong> your package, which means bundling it into a format that is easy to distribute and easy for users to install.</p>
+<p>The best way to build your package is to zip it as a .tar.gz file. Devtools will do this for you if you run the following command:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">build</span>(<span class="dt">binary =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>and then you should see a tar.gz file pop up just outside your working diretory.</p>
+<p>The next step is to submit the bundled file to CRAN <a href="https://cran.r-project.org/submit.html">at the link here</a>, along with a couple of comments. Although this seems pretty simple, in actuality, CRAN has very high standards for packages, so it can be rather tricky to get a package accepted. CRAN’s specific standards are beyond the scope of the current iteration of this guide, but if you decide you want to publish a package on CRAN, you should read <a href="http://r-pkgs.had.co.nz/release.html">Hadley Wickham’s advice on the subject</a> <strong>very carefully.</strong></p>
+<div id="optional-building-precompiled-binaries" class="section level4">
+<h4><span class="header-section-number">2.9.2.1</span> Optional: Building precompiled binaries</h4>
+<p>Tar.gz files are useful because anyone who has a working R development environment can install and unzip your package, regardless of their operating system. However, you do need a development environment to install packages built as Tar.gz files, and some users (in particular on Windows) may not have development environments set up yet. To address this potential issue, another way to build your package is as a <strong>precompiled binary file</strong>. Precompiled binaries are useful because unlike Tar.gz files, they do not require a development environment to install. However, they are platform specific: a precompiled binary built by a Windows machine can’t be installed on Mac machine. Although Tar.gz files are much more common, if you do want to build a binary, you can just change an argument of devtools::build:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">build</span>(<span class="dt">binary =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>and your precompiled binary will be built.</p>
 </div>
 </div>
 <div id="publicizing" class="section level3">
