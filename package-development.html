@@ -159,13 +159,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.8.1" data-path="package-development.html"><a href="package-development.html#including-data-which-should-be-available-to-users"><i class="fa fa-check"></i><b>2.8.1</b> Including data which should be available to users</a></li>
 <li class="chapter" data-level="2.8.2" data-path="package-development.html"><a href="package-development.html#including-data-for-your-functions"><i class="fa fa-check"></i><b>2.8.2</b> Including data for your functions</a></li>
 </ul></li>
-<li class="chapter" data-level="2.9" data-path="package-development.html"><a href="package-development.html#namespace"><i class="fa fa-check"></i><b>2.9</b> Namespace</a></li>
-<li class="chapter" data-level="2.10" data-path="package-development.html"><a href="package-development.html#releasing-your-package"><i class="fa fa-check"></i><b>2.10</b> Releasing Your Package</a><ul>
-<li class="chapter" data-level="2.10.1" data-path="package-development.html"><a href="package-development.html#building"><i class="fa fa-check"></i><b>2.10.1</b> Building</a></li>
-<li class="chapter" data-level="2.10.2" data-path="package-development.html"><a href="package-development.html#releasing"><i class="fa fa-check"></i><b>2.10.2</b> Releasing</a></li>
-<li class="chapter" data-level="2.10.3" data-path="package-development.html"><a href="package-development.html#publicizing"><i class="fa fa-check"></i><b>2.10.3</b> Publicizing</a></li>
+<li class="chapter" data-level="2.9" data-path="package-development.html"><a href="package-development.html#releasing-your-package"><i class="fa fa-check"></i><b>2.9</b> Releasing Your Package</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="package-development.html"><a href="package-development.html#building"><i class="fa fa-check"></i><b>2.9.1</b> Building</a></li>
+<li class="chapter" data-level="2.9.2" data-path="package-development.html"><a href="package-development.html#releasing"><i class="fa fa-check"></i><b>2.9.2</b> Releasing</a></li>
+<li class="chapter" data-level="2.9.3" data-path="package-development.html"><a href="package-development.html#publicizing"><i class="fa fa-check"></i><b>2.9.3</b> Publicizing</a></li>
 </ul></li>
-<li class="chapter" data-level="2.11" data-path="package-development.html"><a href="package-development.html#tips-and-tricks-1"><i class="fa fa-check"></i><b>2.11</b> Tips and Tricks</a></li>
+<li class="chapter" data-level="2.10" data-path="package-development.html"><a href="package-development.html#tips-and-tricks-1"><i class="fa fa-check"></i><b>2.10</b> Tips and Tricks</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="version-control.html"><a href="version-control.html"><i class="fa fa-check"></i><b>3</b> Version Control</a><ul>
 <li class="chapter" data-level="3.1" data-path="version-control.html"><a href="version-control.html#why-use-gitgithub"><i class="fa fa-check"></i><b>3.1</b> Why use Git/GitHub?</a><ul>
@@ -227,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="package-development" class="section level1">
 <h1><span class="header-section-number">2</span> Package Development</h1>
 <p>The following graphic outlines this entire chapter:</p>
-<p><img src="Images/package-workflow.SVG" /></p>
+<p><img src="Images/package-workflow.PNG" /></p>
 <p>As a quick reminder, you can find the ‘devex’ example package linked <a href="https://github.com/amspector100/packageguidelines/tree/master/devex">here, on GitHub</a>, if you’d like to look through it while reading the guide.</p>
 <div id="downloading-development-tools" class="section level2">
 <h2><span class="header-section-number">2.1</span> Downloading Development Tools</h2>
@@ -339,9 +338,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="code-style" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Code Style</h3>
-<p>Now let’s talk about specific elements of code style. These are shortened and adapted from <a href="http://r-pkgs.had.co.nz/r.html">Hadley Wickham’s book on R package development</a>, which in turn were adapted from Google’s R style guide. For more advice on everything from naming variables to curly bracket placement, head to that aforementioned link.</p>
+<p>Now let’s talk about code style. These recommendations are shortened and adapted from <a href="http://r-pkgs.had.co.nz/r.html">Hadley Wickham’s book</a>, which in turn were adapted from Google’s style guide.</p>
 <ol style="list-style-type: decimal">
-<li><strong>Comments</strong>: Comments are the best (and easiest) way to make your code readable. In general, you should err on the side of commenting too much rather than too little, and your comments should explain the <em>motivation</em> of your code as opposed to what your code actually does (although admittedly the line between those two things is a bit blurry). Moreover, you can use lines of ‘# —————————’ or ‘# ==================’ to separate distinct sections of your code. Here’s a good, if simple, example of commenting:</li>
+<li><strong>Comments</strong>: Comments are the best way to make your code readable. In general, you should err on the side of commenting too much rather than too little, and your comments should explain the <em>motivation</em> of your code as opposed to what your code actually does (although admittedly the line between those two things is a bit blurry). Moreover, you can use lines of ‘# —————————’ or ‘# ==================’ to separate sections of your code. Here are some examples:</li>
 </ol>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># Returns the squared element-wise difference between two vectors</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">loss &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) {</a>
@@ -362,7 +361,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb7-17" data-line-number="17">  }</a>
 <a class="sourceLine" id="cb7-18" data-line-number="18">}</a></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
-<li><strong>Names</strong>: Naming variables and functions is tricky - names should be descriptive but concise, and variable names should generally be nouns whereas function names tend to be verbs. Moreover, most R developers keep their function/variable names all lowercase and separate multiple words with underscores. There are no strict rules on this, but at the very least it’s nice to be consistent with <em>some</em> rules because it makes your code more readable.</li>
+<li><strong>Names</strong>: Variable and function names should be descriptive but concise, and variable names should generally be nouns whereas function names tend to be verbs. Most R developers keep their function/variable names all lowercase and separate multiple words with underscores. There are no strict rules on this, but it’s nice to be consistent with <em>some</em> rules because it makes your code readable.</li>
 </ol>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># Bad example - function name</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">f &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
@@ -380,132 +379,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co"># Good example - variable name</span></a>
 <a class="sourceLine" id="cb8-15" data-line-number="15">car_data &lt;-<span class="st"> </span><span class="kw">read.table</span>(path)</a></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
-<li><strong>Spacing</strong>: In general, you should use a lot of spaces, because they make your code a lot more readable! Specifically, you should always surround parenthesis with spaces; the exception is when you’re making a function call. Note that this means you should surround the parenthesis themselves with spaces, but not the objects within the parenthesis, which should <em>not</em> be surrounded with spaces. You should also surround operators (like +, -, &lt;-, =, /, **, others, etc) with spaces; see the examples below.</li>
+<li><strong>Curly Braces</strong>: You should start a new line after you write an opening curly brace, and ending curly braces should get their own lines, unless you have an else clause or the line is exceptionally simple.</li>
 </ol>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Bad examples of parenthesis spacing</span></a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Bad examples</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="cf">if</span>(a <span class="op">==</span><span class="st"> </span><span class="dv">7</span>)<span class="kw">do</span>(something) <span class="co"># Needs spaces before/after the parenthesis</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="cf">if</span> ( a <span class="op">==</span><span class="st"> </span><span class="dv">7</span> ) <span class="co"># Shouldn&#39;t be spaces around &#39;a == 7&#39;</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="kw">function_call</span> (parameter) <span class="co"># Shouldn&#39;t be a space between function_call and (parameter)</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co"># Good example of parenthesis spacing</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="cf">if</span> (condition) {</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">  <span class="kw">complicated_function</span>(x)} <span class="co"># Ending curly brace should get a new line</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co"># Good examples</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="cf">if</span> (condition) {<span class="kw">do</span>(x)} <span class="cf">else</span> {<span class="kw">do</span>(y)}</a>
 <a class="sourceLine" id="cb9-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="cf">if</span> (a <span class="op">==</span><span class="st"> </span><span class="dv">7</span>) <span class="kw">do</span>(something)</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="kw">function_call</span>(parameter)</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co"># Bad example of operator spacing</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14">a&lt;-a<span class="op">+</span><span class="dv">3</span> <span class="co"># Needs spaces </span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co"># Good example of operator spacing</span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18">a &lt;-<span class="st"> </span>a <span class="op">+</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
-<ol start="4" style="list-style-type: decimal">
-<li><strong>Curly Braces</strong>: You should start a new line after you write an opening curly brace, and ending curly braces should get their own lines, unless you have an else clause.</li>
-</ol>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co"># Bad examples</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="cf">if</span> (condition) {</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="kw">do</span> (x)} <span class="co"># Ending curly brace should get a new line</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="cf">if</span> (condition) { <span class="kw">do</span>(x) }</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="cf">if</span> (condition) {</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">  <span class="kw">do</span>(x)</a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">}         <span class="co"># The else should be on this line</span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="kw">do</span>(y)   <span class="co"># This line should be indented with two spaces</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13">}</a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co"># Good examples</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="cf">if</span> (condition) {</a>
-<a class="sourceLine" id="cb10-19" data-line-number="19">  <span class="kw">do</span>(x)</a>
-<a class="sourceLine" id="cb10-20" data-line-number="20">} <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb10-21" data-line-number="21">  <span class="kw">do</span>(y)</a>
-<a class="sourceLine" id="cb10-22" data-line-number="22">}</a></code></pre></div>
-<p>As always, you can break the rules if you have a good reason to. For example, the extra indentation in the following example helps maintain alignment and increases the readability of the code.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># Exception which proves the rule - the alignment improves readability</span></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">my_function =<span class="st"> </span><span class="cf">function</span>(<span class="dt">argument_1 =</span> <span class="st">&#39;this string is extremely long&#39;</span>,</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">                       <span class="dt">argument_2 =</span> <span class="st">&#39;this string is even longer somehow&#39;</span>,</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">                       <span class="dt">argument_3 =</span> <span class="st">&#39;this string is also pretty long&#39;</span>) {</a>
-<a class="sourceLine" id="cb11-5" data-line-number="5">  </a>
-<a class="sourceLine" id="cb11-6" data-line-number="6">}</a></code></pre></div>
-<p>Overall, different organizations and programmers have different styles and guidelines for specific coding style. Some programming guides might require you to avoid <a href="http://wiki.c2.com/?CamelCase">camelCase</a>; others might mandate its use. We’ve tried to document some pretty broadly accepted norms, but in general, you should remember:</p>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="cf">if</span> (condition) {</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10">  <span class="kw">complicated_function_call</span>(arg1, arg2, arg3)</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11">} <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb9-12" data-line-number="12">  <span class="kw">other_complex_function_call</span>(arg7, arg3, arg5)</a>
+<a class="sourceLine" id="cb9-13" data-line-number="13">}</a></code></pre></div>
+<p>As always, you can break the rules if you have a good reason to.</p>
+<p>Different organizations and programmers may have different styles, but in general, you should remember:</p>
 <ol style="list-style-type: decimal">
 <li>Your goal should always be to make your code readable!</li>
-<li>Whatever style guide you follow, follow it <em>consistently</em> to make your code readable</li>
-<li>You should generally adapt to follow the conventions of the organization you’re working under/for</li>
+<li>Whatever style guide you follow, follow it <em>consistently</em></li>
+<li>When in doubt, follow the conventions of the organization you’re working for</li>
 </ol>
 </div>
 <div id="warnings-and-simplicity" class="section level3">
 <h3><span class="header-section-number">2.4.3</span> Warnings and Simplicity</h3>
 <p>Consider the case of the scalep function, which currently takes a 2-column dataframe as an input, divides the second column by the first, and returns/graphs some scaled proportion of the quotient vector. One version of this function, which follows almost all of the guidelines above, might look like this:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">scalep &lt;-<span class="st"> </span><span class="cf">function</span>(d, <span class="dt">x=</span><span class="dv">1</span>){</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">  <span class="co"># Intialize resulting vector</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">  result &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6">  <span class="co"># Iterate through and divide column 2 of d by column 1 of d</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7">  i &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8">  <span class="cf">while</span>(i <span class="op">&lt;</span><span class="st"> </span><span class="kw">length</span>(d[ ,<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>){</a>
-<a class="sourceLine" id="cb12-9" data-line-number="9">    row &lt;-<span class="st"> </span>d[i,]</a>
-<a class="sourceLine" id="cb12-10" data-line-number="10">    result &lt;-<span class="st"> </span><span class="kw">append</span>(result, row[[<span class="dv">2</span>]]<span class="op">/</span>row[[<span class="dv">1</span>]])</a>
-<a class="sourceLine" id="cb12-11" data-line-number="11">    i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12">  }</a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14">  <span class="co"># Print the graph using either ggplot2 or the hist function</span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15">  <span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
-<a class="sourceLine" id="cb12-16" data-line-number="16">    <span class="kw">print</span>(ggplot2<span class="op">::</span><span class="kw">qplot</span>(result, <span class="dt">geom=</span><span class="st">&#39;histogram&#39;</span>))</a>
-<a class="sourceLine" id="cb12-17" data-line-number="17">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb12-18" data-line-number="18">    <span class="kw">print</span>(<span class="kw">hist</span>(result))</a>
-<a class="sourceLine" id="cb12-19" data-line-number="19">  }</a>
-<a class="sourceLine" id="cb12-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb12-21" data-line-number="21">  <span class="co"># Return the result, multiplying by the optional scalar</span></a>
-<a class="sourceLine" id="cb12-22" data-line-number="22">  result &lt;-<span class="st"> </span>x<span class="op">*</span>result</a>
-<a class="sourceLine" id="cb12-23" data-line-number="23">  <span class="kw">return</span>(result)</a>
-<a class="sourceLine" id="cb12-24" data-line-number="24">}</a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">scalep &lt;-<span class="st"> </span><span class="cf">function</span>(d, <span class="dt">x=</span><span class="dv">1</span>){</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="co"># Intialize resulting vector</span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">  result &lt;-<span class="st"> </span><span class="kw">c</span>()</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">  <span class="co"># Iterate through and divide column 2 of d by column 1 of d</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">  i &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">  <span class="cf">while</span>(i <span class="op">&lt;</span><span class="st"> </span><span class="kw">length</span>(d[ ,<span class="dv">1</span>]) <span class="op">+</span><span class="st"> </span><span class="dv">1</span>){</a>
+<a class="sourceLine" id="cb10-9" data-line-number="9">    row &lt;-<span class="st"> </span>d[i,]</a>
+<a class="sourceLine" id="cb10-10" data-line-number="10">    result &lt;-<span class="st"> </span><span class="kw">append</span>(result, row[[<span class="dv">2</span>]]<span class="op">/</span>row[[<span class="dv">1</span>]])</a>
+<a class="sourceLine" id="cb10-11" data-line-number="11">    i &lt;-<span class="st"> </span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12">  }</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">  <span class="co"># Print the graph using either ggplot2 or the hist function</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">  <span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">    <span class="kw">print</span>(ggplot2<span class="op">::</span><span class="kw">qplot</span>(result, <span class="dt">geom=</span><span class="st">&#39;histogram&#39;</span>))</a>
+<a class="sourceLine" id="cb10-17" data-line-number="17">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb10-18" data-line-number="18">    <span class="kw">print</span>(<span class="kw">hist</span>(result))</a>
+<a class="sourceLine" id="cb10-19" data-line-number="19">  }</a>
+<a class="sourceLine" id="cb10-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb10-21" data-line-number="21">  <span class="co"># Return the result, multiplying by the optional scalar</span></a>
+<a class="sourceLine" id="cb10-22" data-line-number="22">  result &lt;-<span class="st"> </span>x<span class="op">*</span>result</a>
+<a class="sourceLine" id="cb10-23" data-line-number="23">  <span class="kw">return</span>(result)</a>
+<a class="sourceLine" id="cb10-24" data-line-number="24">}</a></code></pre></div>
 <p>However, this function still has a couple of problems. It’s not super easy to use because (a) it’s understandably hard for other programmers to remember which column is divided by which and (b) there’s a simpler way to accomplish the code above which will make it more readable. Specifically, it might be easier to just have arguments called ‘factors’ and ‘divisors’ and then divide them, like this</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">scalep &lt;-<span class="st"> </span><span class="cf">function</span>(factors, divisors, <span class="dt">constant =</span> <span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">  <span class="co"># Divide and multiply by optional scalar</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4">  proportions &lt;-<span class="st"> </span>constant<span class="op">*</span>factors<span class="op">/</span>divisors</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6">  <span class="co"># Print the graph using either ggplot2 or the hist function</span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7">  <span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
-<a class="sourceLine" id="cb13-8" data-line-number="8">    <span class="kw">print</span>(ggplot2<span class="op">::</span><span class="kw">qplot</span>(proportions, <span class="dt">geom=</span><span class="st">&#39;histogram&#39;</span>))</a>
-<a class="sourceLine" id="cb13-9" data-line-number="9">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb13-10" data-line-number="10">    <span class="kw">print</span>(<span class="kw">hist</span>(proportions))</a>
-<a class="sourceLine" id="cb13-11" data-line-number="11">  }</a>
-<a class="sourceLine" id="cb13-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb13-13" data-line-number="13">  <span class="co"># Return the result</span></a>
-<a class="sourceLine" id="cb13-14" data-line-number="14">  <span class="kw">return</span>(proportions)</a>
-<a class="sourceLine" id="cb13-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">scalep &lt;-<span class="st"> </span><span class="cf">function</span>(factors, divisors, <span class="dt">constant =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="co"># Divide and multiply by optional scalar</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">  proportions &lt;-<span class="st"> </span>constant<span class="op">*</span>factors<span class="op">/</span>divisors</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">  <span class="co"># Print the graph using either ggplot2 or the hist function</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">  <span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) {</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">    <span class="kw">print</span>(ggplot2<span class="op">::</span><span class="kw">qplot</span>(proportions, <span class="dt">geom=</span><span class="st">&#39;histogram&#39;</span>))</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">    <span class="kw">print</span>(<span class="kw">hist</span>(proportions))</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11">  }</a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13">  <span class="co"># Return the result</span></a>
+<a class="sourceLine" id="cb11-14" data-line-number="14">  <span class="kw">return</span>(proportions)</a>
+<a class="sourceLine" id="cb11-15" data-line-number="15">}</a></code></pre></div>
 <p>The new argument structure will make it a bit easier to use. Similarly, the new structure simplifies the code, making it a bit more readable. However, it does pose one problem: whereas the previous structure mandated that the two vectors be the same length (because they were part of a dataframe), in this function, the two vectors might not be the same length and the function would not always throw an error (specifically, if ‘factors’ has a length which is is an integer multiple of the length of ‘divisors’, R will not warn the user at all). This problem is a type of <strong>silent error</strong> (silent errors are bugs which do not issue warnings or errors). Silent errors are terrible because they make bug-hunting extremely difficult: in large repositories of code, it becomes nearly impossible to find which specific line is causing problems without some kind of warning. Thus, it’s also worth adding in a couple of lines to warn the user if the factors and divisors are of different lengths, as is outlined below:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">  <span class="co"># Check divisors and factors are the same length</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(divisors) <span class="op">!=</span><span class="st"> </span><span class="kw">length</span>(factors)) {</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3">    <span class="kw">warning</span>(<span class="st">&#39;Length of divisors argument is not equal to length of factors argument&#39;</span>)</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4">  }</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">  <span class="co"># Check divisors and factors are the same length</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw">length</span>(divisors) <span class="op">!=</span><span class="st"> </span><span class="kw">length</span>(factors)) {</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">    <span class="kw">warning</span>(<span class="st">&#39;Length of divisors argument is not equal to length of factors argument&#39;</span>)</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">  }</a></code></pre></div>
 <p>Lastly, it’s just worth adding an extra optional argument to let your users turn off the graphing feature of scalep, just to make the function more useable, as follows:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">scalep &lt;-<span class="st"> </span><span class="cf">function</span>(factors, divisors, <span class="dt">constant =</span> <span class="dv">1</span>, <span class="dt">graph =</span> <span class="ot">FALSE</span>) {</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">  </a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">  ...</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5">  <span class="co"># If graph = True, print the graph using either ggplot2 or the hist function</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6">  <span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>) <span class="op">&amp;</span><span class="st"> </span>graph) {</a>
-<a class="sourceLine" id="cb15-7" data-line-number="7">    <span class="kw">print</span>(ggplot2<span class="op">::</span><span class="kw">qplot</span>(proportions, <span class="dt">geom=</span><span class="st">&#39;histogram&#39;</span>))</a>
-<a class="sourceLine" id="cb15-8" data-line-number="8">  } <span class="cf">else</span> <span class="cf">if</span> (graph) {</a>
-<a class="sourceLine" id="cb15-9" data-line-number="9">    <span class="kw">print</span>(<span class="kw">hist</span>(proportions))</a>
-<a class="sourceLine" id="cb15-10" data-line-number="10">  }</a>
-<a class="sourceLine" id="cb15-11" data-line-number="11">  </a>
-<a class="sourceLine" id="cb15-12" data-line-number="12">  ...</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">scalep &lt;-<span class="st"> </span><span class="cf">function</span>(factors, divisors, <span class="dt">constant =</span> <span class="dv">1</span>, <span class="dt">graph =</span> <span class="ot">FALSE</span>) {</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">  ...</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">  <span class="co"># If graph = True, print the graph using either ggplot2 or the hist function</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">  <span class="cf">if</span> (<span class="kw">requireNamespace</span>(<span class="st">&quot;ggplot2&quot;</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>) <span class="op">&amp;</span><span class="st"> </span>graph) {</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">    <span class="kw">print</span>(ggplot2<span class="op">::</span><span class="kw">qplot</span>(proportions, <span class="dt">geom=</span><span class="st">&#39;histogram&#39;</span>))</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8">  } <span class="cf">else</span> <span class="cf">if</span> (graph) {</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9">    <span class="kw">print</span>(<span class="kw">hist</span>(proportions))</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">  }</a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">  </a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">  ...</a></code></pre></div>
 <p>To summarize, this subsection thus contained three core ideas: (1) make your code simple, (2) make it easy to use by labeling arguments, and (3) always avoid silent errors.</p>
 </div>
 <div id="loading-your-code" class="section level3">
 <h3><span class="header-section-number">2.4.4</span> Loading Your Code</h3>
 <p>If you’ve finished writing your code and want to play with it a little bit, you can use the following function:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">load_all</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">load_all</span>()</a></code></pre></div>
 <p>which (according to its documentation) “roughly simulates what happens when a package is installed and loaded with library.” As we’ll see in the <a href="#building-your-package">build</a>, <a href="package-development.html#testing">testing</a>, and <a href="./integrated-development-environments.html#ex-building-packages">RStudio</a> sections, there are better ways to simulate the user experience and test your code, but load_all is often a useful intermediate step.</p>
 </div>
 </div>
@@ -519,14 +482,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="what-are-unit-tests" class="section level3">
 <h3><span class="header-section-number">2.5.2</span> What are unit tests?</h3>
 <p>Tests compare the <em>expected</em> output of a block of code to its <em>actual</em> output. For example, the following test tests whether the “generalized square root” function actually returns <span class="math inline">\(2\)</span> as the square root of <span class="math inline">\(4\)</span>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="dv">4</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">2</span>, <span class="dt">imaginary =</span> <span class="dv">0</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="dv">4</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">2</span>, <span class="dt">imaginary =</span> <span class="dv">0</span>))</a></code></pre></div>
 <p><em>Unit tests</em> usually run on the computer of the developer who is modifying a package and also should run automatically upon building a package.</p>
 <p>We’ll talk a little more about how exactly to create tests down below, but hopefully this makes the general concept clear (you’ve also probably been using the general concept as you program).</p>
 </div>
 <div id="setting-up-the-testing-environment" class="section level3">
 <h3><span class="header-section-number">2.5.3</span> Setting up the testing environment</h3>
 <p>Creating unit tests is actually quite easy, thanks to a package called ‘testtthat’ which works in combination with devtools. To begin, you should run the following command in your favorite IDE, or even in the R Gui:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">use_testthat</span>(<span class="st">&quot;path/to/your/package&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">use_testthat</span>(<span class="st">&quot;path/to/your/package&quot;</span>)</a></code></pre></div>
 <p>This will do a couple of things. First, it will add ‘testthat’ to the Suggests part of the DESCRIPTION, which will help other collaborators know to use testthat when modifying/working on the package. It will also create a ‘tests/testthat’ directory in your project, as well a file called ‘test/testthat.R’, as shown below.</p>
 <p><img src="Images/TestSS/devtoolstestthat.PNG" /></p>
 </div>
@@ -538,9 +501,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>If the actual output does not match the expectation, it will throw an error.</li>
 </ol>
 <p>For example, ‘expect_equal()’ uses the base R function ‘all.equal()’ to check whether an output is (approximately) equal to an expectation. In the following code, the first function call will do nothing - the second function call will throw an error, displayed below.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">library</span>(testthat)</a>
-<a class="sourceLine" id="cb19-2" data-line-number="2">testthat<span class="op">::</span><span class="kw">expect_equal</span>(<span class="dv">2</span>, <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb19-3" data-line-number="3">testthat<span class="op">::</span><span class="kw">expect_equal</span>(<span class="dv">2</span>, <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">library</span>(testthat)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">testthat<span class="op">::</span><span class="kw">expect_equal</span>(<span class="dv">2</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">testthat<span class="op">::</span><span class="kw">expect_equal</span>(<span class="dv">2</span>, <span class="dv">4</span>)</a></code></pre></div>
 <p><img src="Images/TestSS/expectationerror.PNG" /></p>
 <p>Here’s an (abbreviated) list of the expectation functions:</p>
 <ol style="list-style-type: decimal">
@@ -548,13 +511,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>expect_identical</strong> checks equality using the “identical()” base function. Generally, it’s better to use “expect_equal” because lots of R functions use numerical approximations which will cause expect_identical to fail when you don’t want it to.</li>
 <li><strong>expect_match</strong>, <strong>expect_output</strong>, <strong>expect_message</strong>, <strong>expect_warning</strong>, and <strong>expect_error</strong> all respectively test whether a string, output, warning, or error match a regular expression. For example, the following two expectations functions will not throw errors:</li>
 </ol>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">testthat<span class="op">::</span><span class="kw">expect_match</span>(<span class="st">&#39;hello1234&#39;</span>, <span class="st">&#39;hello&#39;</span>)</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">testthat<span class="op">::</span><span class="kw">expect_warning</span>(<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;NaNs produced&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">testthat<span class="op">::</span><span class="kw">expect_match</span>(<span class="st">&#39;hello1234&#39;</span>, <span class="st">&#39;hello&#39;</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2">testthat<span class="op">::</span><span class="kw">expect_warning</span>(<span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;NaNs produced&#39;</span>)</a></code></pre></div>
 <p>The tests do not fail because (i) ‘hello1234’ contains ‘hello’ and (ii) the error message produced by sqrt(-2) contains the phrase ‘NaNs produced’.</p>
 <ol start="4" style="list-style-type: decimal">
 <li><strong>expect_is</strong> tests whether an object inherets from a class, specified in quotes. For example, the following test passes:</li>
 </ol>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">testthat<span class="op">::</span><span class="kw">expect_is</span>(<span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;numeric&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">testthat<span class="op">::</span><span class="kw">expect_is</span>(<span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;numeric&#39;</span>)</a></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li><strong>expect_true</strong> and <strong>expect_false</strong> respectively expect a statement to evaluate to true or false.</li>
 </ol>
@@ -562,118 +525,118 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="structure-and-location-of-unit-tests" class="section level3">
 <h3><span class="header-section-number">2.5.5</span> Structure and Location of Unit Tests</h3>
 <p>Each <em>unit test</em> (which is written in an R script) should use a couple of expectations to test a single core function. It should use the function “test_that” (from the “testthat” package). “test_that” takes two parameters: a string, which describes the test, and a couple of expectations, surrounded by curly braces. For example, the following code will test whether the general_sqrt function from the devex package returns a complex number.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns complex number&quot;</span>, {</a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">0</span>), <span class="st">&#39;complex&#39;</span>)</a>
-<a class="sourceLine" id="cb22-5" data-line-number="5">})</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns complex number&quot;</span>, {</a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb20-3" data-line-number="3">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">0</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb20-5" data-line-number="5">})</a></code></pre></div>
 <p>Multiple tests with similar functions should be put in the same file, and those test files must be put in the tests/testthat/ directory. Moreover, their name must start with the word ‘test’ - this will help R automatically run your tests for you. For example, in the devex package, there are two very simple helper functions (‘general_sqrt’ and ‘loss’) and one moderately complex function (‘scalep’). As a result, the devex package has exactly two testing files: one called ‘testhelpers,’ which tests the helper functions, and another called ‘testscalep’, which tests the scalep function. The testhelpers file looks like this:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">library</span>(devex)</a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="kw">context</span>(<span class="st">&quot;generalized sqrt and loss&quot;</span>)</a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb23-4" data-line-number="4"><span class="co"># Generalized sqrt ---------------------------------------</span></a>
-<a class="sourceLine" id="cb23-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb23-6" data-line-number="6"><span class="kw">test_that</span>(<span class="st">&quot;Returns complex number&quot;</span>, {</a>
-<a class="sourceLine" id="cb23-7" data-line-number="7">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
-<a class="sourceLine" id="cb23-8" data-line-number="8">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
-<a class="sourceLine" id="cb23-9" data-line-number="9">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">0</span>), <span class="st">&#39;complex&#39;</span>)</a>
-<a class="sourceLine" id="cb23-10" data-line-number="10">})</a>
-<a class="sourceLine" id="cb23-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb23-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
-<a class="sourceLine" id="cb23-13" data-line-number="13">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>)))</a>
-<a class="sourceLine" id="cb23-14" data-line-number="14">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb23-15" data-line-number="15">})</a>
-<a class="sourceLine" id="cb23-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb23-17" data-line-number="17"><span class="kw">test_that</span>(<span class="st">&quot;Warnings for vectors of length &gt; 1&quot;</span>, {</a>
-<a class="sourceLine" id="cb23-18" data-line-number="18">  <span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)))</a>
-<a class="sourceLine" id="cb23-19" data-line-number="19">  <span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>)), <span class="st">&#39;NaNs produced&#39;</span>)</a>
-<a class="sourceLine" id="cb23-20" data-line-number="20">})</a>
-<a class="sourceLine" id="cb23-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb23-22" data-line-number="22"><span class="co"># Loss ---------------------------------------------------</span></a>
-<a class="sourceLine" id="cb23-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb23-24" data-line-number="24"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct loss&quot;</span>, {</a>
-<a class="sourceLine" id="cb23-25" data-line-number="25">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb23-26" data-line-number="26">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb23-27" data-line-number="27">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-5</span>, <span class="dv">-2</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">25</span>, <span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb23-28" data-line-number="28"><span class="er">}</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">library</span>(devex)</a>
+<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">context</span>(<span class="st">&quot;generalized sqrt and loss&quot;</span>)</a>
+<a class="sourceLine" id="cb21-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb21-4" data-line-number="4"><span class="co"># Generalized sqrt ---------------------------------------</span></a>
+<a class="sourceLine" id="cb21-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb21-6" data-line-number="6"><span class="kw">test_that</span>(<span class="st">&quot;Returns complex number&quot;</span>, {</a>
+<a class="sourceLine" id="cb21-7" data-line-number="7">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb21-8" data-line-number="8">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">2</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb21-9" data-line-number="9">  <span class="kw">expect_is</span>(<span class="kw">general_sqrt</span>(<span class="dv">0</span>), <span class="st">&#39;complex&#39;</span>)</a>
+<a class="sourceLine" id="cb21-10" data-line-number="10">})</a>
+<a class="sourceLine" id="cb21-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb21-12" data-line-number="12"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
+<a class="sourceLine" id="cb21-13" data-line-number="13">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>)))</a>
+<a class="sourceLine" id="cb21-14" data-line-number="14">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb21-15" data-line-number="15">})</a>
+<a class="sourceLine" id="cb21-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb21-17" data-line-number="17"><span class="kw">test_that</span>(<span class="st">&quot;Warnings for vectors of length &gt; 1&quot;</span>, {</a>
+<a class="sourceLine" id="cb21-18" data-line-number="18">  <span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)))</a>
+<a class="sourceLine" id="cb21-19" data-line-number="19">  <span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">2</span>)), <span class="st">&#39;NaNs produced&#39;</span>)</a>
+<a class="sourceLine" id="cb21-20" data-line-number="20">})</a>
+<a class="sourceLine" id="cb21-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb21-22" data-line-number="22"><span class="co"># Loss ---------------------------------------------------</span></a>
+<a class="sourceLine" id="cb21-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb21-24" data-line-number="24"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct loss&quot;</span>, {</a>
+<a class="sourceLine" id="cb21-25" data-line-number="25">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb21-26" data-line-number="26">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb21-27" data-line-number="27">  <span class="kw">expect_equal</span>(<span class="kw">loss</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">-5</span>, <span class="dv">-2</span>), <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>)), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">25</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb21-28" data-line-number="28"><span class="er">}</span>)</a></code></pre></div>
 <p>Each test file, as demonstrated above, needs to load the package of interest (using ‘library’ is fine) and also should supply a string which succinctly describes the general purpose of all of the tests in the test file to the ‘context’ function.</p>
 <p>You can run all of the tests in the test/testthat directory by running the following devtools function:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">test</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">test</span>()</a></code></pre></div>
 <p>If any test throws an error, R will report two things. First, it will report the string given in the test which was given to the ‘test_that’ function call. Second, it will report the filename of the test file as well as the line of code that threw an error. For example, running the above tests yields the following result:</p>
 <p><img src="Images/TestSS/testthaterror1.PNG" /></p>
 <p>This indicates that line 18 of testhelpers.R failed in the test “Warnings for vectors of length &gt; 1.” Looking at the test code reveals that the general_sqrt function does not return a warning for positive vectors of length greater than one.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">expect_warning</span>(<span class="kw">general_sqrt</span>(<span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">0</span>)))</a></code></pre></div>
 <p>To fix this, it might be worth adding in an extra line or two which ensures that the input to general_sqrt is as it should be (in order to prevent users from getting unexpected results).</p>
 </div>
 <div id="writing-good-tests" class="section level3">
 <h3><span class="header-section-number">2.5.6</span> Writing Good Tests</h3>
 <p>Good tests have a couple of characteristics.</p>
 <p><strong>First</strong>, good tests have high <em>coverage,</em> meaning that they test a large percentage of the lines of code of the package. For example, the code for the general_sqrt function is as follows:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># This function takes the complex square root of real numbers</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb26-3" data-line-number="3">general_sqrt &lt;-<span class="st"> </span><span class="cf">function</span> (x){</a>
-<a class="sourceLine" id="cb26-4" data-line-number="4">  </a>
-<a class="sourceLine" id="cb26-5" data-line-number="5">  <span class="co"># Issue warning for longer vectors</span></a>
-<a class="sourceLine" id="cb26-6" data-line-number="6">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb26-7" data-line-number="7">    <span class="kw">warning</span>(<span class="st">&#39;Argument of general_sqrt has length greater than 1&#39;</span>)</a>
-<a class="sourceLine" id="cb26-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb26-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb26-10" data-line-number="10">  <span class="co"># Return the normal square root if x &gt; 0</span></a>
-<a class="sourceLine" id="cb26-11" data-line-number="11">  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>){</a>
-<a class="sourceLine" id="cb26-12" data-line-number="12">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real =</span> <span class="kw">sqrt</span>(x), <span class="dt">imaginary =</span> <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb26-13" data-line-number="13">  }</a>
-<a class="sourceLine" id="cb26-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb26-15" data-line-number="15">  <span class="co"># Else return the complex square root</span></a>
-<a class="sourceLine" id="cb26-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb26-17" data-line-number="17">  <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb26-18" data-line-number="18">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="op">-</span>x)))</a>
-<a class="sourceLine" id="cb26-19" data-line-number="19">  }</a>
-<a class="sourceLine" id="cb26-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb26-21" data-line-number="21">}</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="co"># This function takes the complex square root of real numbers</span></a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb24-3" data-line-number="3">general_sqrt &lt;-<span class="st"> </span><span class="cf">function</span> (x){</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4">  </a>
+<a class="sourceLine" id="cb24-5" data-line-number="5">  <span class="co"># Issue warning for longer vectors</span></a>
+<a class="sourceLine" id="cb24-6" data-line-number="6">  <span class="cf">if</span> (<span class="kw">length</span>(x) <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb24-7" data-line-number="7">    <span class="kw">warning</span>(<span class="st">&#39;Argument of general_sqrt has length greater than 1&#39;</span>)</a>
+<a class="sourceLine" id="cb24-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb24-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb24-10" data-line-number="10">  <span class="co"># Return the normal square root if x &gt; 0</span></a>
+<a class="sourceLine" id="cb24-11" data-line-number="11">  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>){</a>
+<a class="sourceLine" id="cb24-12" data-line-number="12">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real =</span> <span class="kw">sqrt</span>(x), <span class="dt">imaginary =</span> <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb24-13" data-line-number="13">  }</a>
+<a class="sourceLine" id="cb24-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb24-15" data-line-number="15">  <span class="co"># Else return the complex square root</span></a>
+<a class="sourceLine" id="cb24-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb24-17" data-line-number="17">  <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb24-18" data-line-number="18">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="op">-</span>x)))</a>
+<a class="sourceLine" id="cb24-19" data-line-number="19">  }</a>
+<a class="sourceLine" id="cb24-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb24-21" data-line-number="21">}</a></code></pre></div>
 <p>The following test has low coverage for the general_sqrt function:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>)))</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb27-4" data-line-number="4">})</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
+<a class="sourceLine" id="cb25-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>)))</a>
+<a class="sourceLine" id="cb25-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb25-4" data-line-number="4">})</a></code></pre></div>
 <p>because it only tests whether general_sqrt returns the correct square root for negative numbers. This test thus only covers half of the code in general_sqrt, because the mechanism for dealing with nonnegative numbers is entirely separate. The following test is a better example, because it tests both positive and negative numbers.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>), <span class="dt">imaginary =</span> <span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb28-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
-<a class="sourceLine" id="cb28-4" data-line-number="4">})</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">test_that</span>(<span class="st">&quot;Returns correct sqrt&quot;</span>, {</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="fl">1.53</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="kw">sqrt</span>(<span class="fl">1.53</span>), <span class="dt">imaginary =</span> <span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">  <span class="kw">expect_equal</span>(<span class="kw">general_sqrt</span>(<span class="op">-</span><span class="dv">2</span>), <span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="dv">2</span>)))</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">})</a></code></pre></div>
 <p><strong>Second</strong>, it’s important to remember that coverage is only important because tests with high coverage tend to test all the different functionalities of a package. It’s possible to have tests which have very high coverage but aren’t great tests. Consider the following example.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">print_it &lt;-<span class="st"> </span><span class="cf">function</span>(text){</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2">  <span class="kw">print</span>(<span class="st">&#39;hello&#39;</span>)</a>
-<a class="sourceLine" id="cb29-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb29-5" data-line-number="5">testthat<span class="op">::</span><span class="kw">expect_warning</span>(<span class="kw">print_it</span>(<span class="st">&#39;hi&#39;</span>), <span class="ot">NA</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">print_it &lt;-<span class="st"> </span><span class="cf">function</span>(text){</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">  <span class="kw">print</span>(<span class="st">&#39;hello&#39;</span>)</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb27-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb27-5" data-line-number="5">testthat<span class="op">::</span><span class="kw">expect_warning</span>(<span class="kw">print_it</span>(<span class="st">&#39;hi&#39;</span>), <span class="ot">NA</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;hello&quot;</code></pre>
 <p>This expectation has 100% coverage because it will run every line of code (the expectation will also pass because no warning will be thrown). However, it’s not sufficient alone because it doesn’t actually test whether print_it returns the desired output: in this case, print_it will always print ‘hello’. In other words, the expectation does not test all of the functionality of the function.</p>
 <p><strong>Third</strong>, tests should run relatively quickly, if possible. Sometimes, it’s okay to maximize coverage even if you don’t test every single functionality to save time, because <em>usually</em> high coverage ensures you test most of the functionality of the package. This is particularly true because lots of integrated testing software (which we’ll discuss in integrated tests) will not be able to easily run tests which take too long. More on that later.</p>
 <p><strong>Fourth</strong>, tests should be clear to the reader, because sometimes there are bugs in tests too. If others eventually help develop or maintain your packages, they’ll want to know what it means when a test fails. Moreover, for large packages, you yourself may have trouble remembering the exact details of every test you’ve written. Thus, your tests should return clear error messages and be readable. For example, the following test is a bad example, for two reasons:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">sigmoid &lt;-<span class="st"> </span><span class="cf">function</span>(x, a, b){</a>
-<a class="sourceLine" id="cb31-2" data-line-number="2">  <span class="kw">return</span>(<span class="kw">exp</span>(a<span class="op">*</span>x)<span class="op">/</span>(<span class="kw">exp</span>(a<span class="op">*</span>x) <span class="op">+</span><span class="st"> </span>b))</a>
-<a class="sourceLine" id="cb31-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb31-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb31-5" data-line-number="5"><span class="kw">test_that</span>(<span class="st">&#39;sigmoid output&#39;</span>, {</a>
-<a class="sourceLine" id="cb31-6" data-line-number="6">  <span class="kw">expect_equal</span>(<span class="kw">sigmoid</span>(<span class="fl">0.3068528</span>, <span class="dv">1</span>, <span class="fl">1.3591409</span>), <span class="fl">0.5</span>, <span class="dv">10</span><span class="op">^-</span><span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb31-7" data-line-number="7">})</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">sigmoid &lt;-<span class="st"> </span><span class="cf">function</span>(x, a, b){</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">  <span class="kw">return</span>(<span class="kw">exp</span>(a<span class="op">*</span>x)<span class="op">/</span>(<span class="kw">exp</span>(a<span class="op">*</span>x) <span class="op">+</span><span class="st"> </span>b))</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="kw">test_that</span>(<span class="st">&#39;sigmoid output&#39;</span>, {</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6">  <span class="kw">expect_equal</span>(<span class="kw">sigmoid</span>(<span class="fl">0.3068528</span>, <span class="dv">1</span>, <span class="fl">1.3591409</span>), <span class="fl">0.5</span>, <span class="dv">10</span><span class="op">^-</span><span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">})</a></code></pre></div>
 <p>The string ‘sigmoid output’ does not describe the purpose of the test, which is to test the precision of the sigmoid output. This means that if the test fails, it will be hard to tell what’s wrong. Additionally, the purpose of the test is not clear to begin with - what do the seemingly random decimals mean? At the very least, it’s probably worth putting comments in explaining the point of the test, as shown below.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">sigmoid &lt;-<span class="st"> </span><span class="cf">function</span>(x, a, b){</a>
-<a class="sourceLine" id="cb32-2" data-line-number="2">  <span class="kw">return</span>(<span class="kw">exp</span>(a<span class="op">*</span>x)<span class="op">/</span>(<span class="kw">exp</span>(a<span class="op">*</span>x) <span class="op">+</span><span class="st"> </span>b))</a>
-<a class="sourceLine" id="cb32-3" data-line-number="3">}</a>
-<a class="sourceLine" id="cb32-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb32-5" data-line-number="5"><span class="kw">test_that</span>(<span class="st">&#39;test sigmoid precision&#39;</span>, {</a>
-<a class="sourceLine" id="cb32-6" data-line-number="6">  </a>
-<a class="sourceLine" id="cb32-7" data-line-number="7">  <span class="co"># Check sigmoid(ln(e/2), ln(e/2), e/2) is very close to 1/2.</span></a>
-<a class="sourceLine" id="cb32-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb32-9" data-line-number="9">  <span class="kw">expect_equal</span>(<span class="kw">sigmoid</span>(<span class="fl">0.3068528</span>, <span class="dv">1</span>, <span class="fl">1.3591409</span>), <span class="fl">0.5</span>, <span class="dv">10</span><span class="op">^-</span><span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb32-10" data-line-number="10">})</a></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">sigmoid &lt;-<span class="st"> </span><span class="cf">function</span>(x, a, b){</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">  <span class="kw">return</span>(<span class="kw">exp</span>(a<span class="op">*</span>x)<span class="op">/</span>(<span class="kw">exp</span>(a<span class="op">*</span>x) <span class="op">+</span><span class="st"> </span>b))</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb30-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb30-5" data-line-number="5"><span class="kw">test_that</span>(<span class="st">&#39;test sigmoid precision&#39;</span>, {</a>
+<a class="sourceLine" id="cb30-6" data-line-number="6">  </a>
+<a class="sourceLine" id="cb30-7" data-line-number="7">  <span class="co"># Check sigmoid(ln(e/2), ln(e/2), e/2) is very close to 1/2.</span></a>
+<a class="sourceLine" id="cb30-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb30-9" data-line-number="9">  <span class="kw">expect_equal</span>(<span class="kw">sigmoid</span>(<span class="fl">0.3068528</span>, <span class="dv">1</span>, <span class="fl">1.3591409</span>), <span class="fl">0.5</span>, <span class="dv">10</span><span class="op">^-</span><span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb30-10" data-line-number="10">})</a></code></pre></div>
 <p>This test is a bit more interpretable and delivers a better error message.</p>
 </div>
 <div id="automated-checking" class="section level3">
 <h3><span class="header-section-number">2.5.7</span> Automated Checking</h3>
 <p>The ‘devtools::test()’ function is pretty nice, but all it does is run your unit tests - it doesn’t check everything else in your package. Thankfully, the devtools::check function fills this gap.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">check</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">check</span>()</a></code></pre></div>
 <p>Running the check function will ensure your documentation is up to date, automatically run all of your unit tests, and even check your code for common problems. Note that even your pakage passes all of its tests, you might still see additional warnings for other reasons, as exemplified below:</p>
 <p><img src="Images/TestSS/autobuildresults.PNG" /></p>
 <p>Although it’s not necessary to understand every check that the check function runs, it’s worth noting that every check it performs is relatively important, and if it signals any warnings or errors, it’s definitely worth fixing them. It’s also probably worth fixing any “notes” it issues. If you’re curious, you can read more about what each type of check in the automated check does (here)[<a href="http://r-pkgs.had.co.nz/check.html#check" class="uri">http://r-pkgs.had.co.nz/check.html#check</a>].</p>
@@ -684,14 +647,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="Images/TestSS/goodpractice1.PNG" /></p>
 <p>Let’s run through the key points of using goodpractice below.</p>
 <p>To install the goodpractice package, just run the following command in the R console:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;goodpractice&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&#39;goodpractice&#39;</span>)</a></code></pre></div>
 <p>Once you’ve installed the goodpractice package, you basically only need to know a single function from it: the ‘gp()’ or ‘goodpractice()’ function (gp and goodpractice call the same code). This function will run comprehensive automated checks on your package, and it takes exactly one input, the path of your built package. However, it’s important to note that the path of your <em>built</em> package is not identical to the path of the repo containing it. For example, I work on the ‘devex’ package in “C:/Users/amspe/Documents/R/packageguidelines/devex”, but the built package lives at “C:/Users/amspe/Documents/R/win-library/3.5/devex”. For goodpractice to work, you need to use the paths of the <em>second</em> form, i.e. where the built package lives. If you don’t know this path immediately, you can use the “system.file” function to retrieve it for you, as demonstrated below.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># Retrieve path</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2">package_path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">&#39;devex&#39;</span>)</a>
-<a class="sourceLine" id="cb35-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb35-4" data-line-number="4"><span class="co"># Check package</span></a>
-<a class="sourceLine" id="cb35-5" data-line-number="5"><span class="kw">library</span>(goodpractice)</a>
-<a class="sourceLine" id="cb35-6" data-line-number="6"><span class="kw">gp</span>(package_path)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># Retrieve path</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">package_path &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="dt">package =</span> <span class="st">&#39;devex&#39;</span>)</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="co"># Check package</span></a>
+<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="kw">library</span>(goodpractice)</a>
+<a class="sourceLine" id="cb33-6" data-line-number="6"><span class="kw">gp</span>(package_path)</a></code></pre></div>
 <p>And that’s it! The goodpractice package is a bit picky, so it’s okay to leave a few concerns unresolved, but in general it gives good advice. If you’re diligent, you might eventually see a result like this:</p>
 <p><img src="Images/TestSS/goodpractice2.PNG" /></p>
 <p>which signals that your package conforms to all goodpractices. Lastly, although it’s beyond the scope of this guide, you ought to know that you can create custom checks using the goodpractice package, as documented <a href="https://github.com/MangoTheCat/goodpractice/blob/master/vignettes/custom_checks.Rmd">here</a>.</p>
@@ -715,36 +678,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.6.1</span> Documenting Functions</h3>
 <p>(Note: here, we describe how to document functions. For a more detailed description of how to document S3, S4, and reference classes, check out <a href="http://r-pkgs.had.co.nz/man.html">this page</a>.)</p>
 <p>To understand how to use Roxygen2, it’s best to start with an example. Consider the following code, which generates the documentation for the “general_sqrt” function above.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="co">#&#39; Generalized Square Roots</span></a>
-<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="co">#&#39; \code{general_sqrt} returns the square root of any real number</span></a>
-<a class="sourceLine" id="cb36-4" data-line-number="4"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb36-5" data-line-number="5"><span class="co">#&#39; @param x A real number - integers or doubles are both acceptable.</span></a>
-<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="co">#&#39; @return A complex value. If x is positive, the imaginary component is equal to 0;</span></a>
-<a class="sourceLine" id="cb36-7" data-line-number="7"><span class="co">#&#39; if x is negative, the real component is equal to 0.</span></a>
-<a class="sourceLine" id="cb36-8" data-line-number="8"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb36-9" data-line-number="9"><span class="co">#&#39; @examples</span></a>
-<a class="sourceLine" id="cb36-10" data-line-number="10"><span class="co">#&#39; general_sqrt(10)</span></a>
-<a class="sourceLine" id="cb36-11" data-line-number="11"><span class="co">#&#39; general_sqrt(-10)</span></a>
-<a class="sourceLine" id="cb36-12" data-line-number="12"><span class="co">#&#39; general_sqrt(-1)</span></a>
-<a class="sourceLine" id="cb36-13" data-line-number="13"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb36-14" data-line-number="14"><span class="co">#&#39; @export</span></a>
-<a class="sourceLine" id="cb36-15" data-line-number="15"><span class="co"># This function takes the complex square root of real numbers</span></a>
-<a class="sourceLine" id="cb36-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb36-17" data-line-number="17">general_sqrt &lt;-<span class="st"> </span><span class="cf">function</span> (x) {</a>
-<a class="sourceLine" id="cb36-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb36-19" data-line-number="19">  <span class="co"># Return the normal square root if x &gt; 0</span></a>
-<a class="sourceLine" id="cb36-20" data-line-number="20">  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb36-21" data-line-number="21">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real=</span><span class="kw">sqrt</span>(x), <span class="dt">imaginary=</span><span class="dv">0</span>))</a>
-<a class="sourceLine" id="cb36-22" data-line-number="22">  }</a>
-<a class="sourceLine" id="cb36-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb36-24" data-line-number="24">  <span class="co"># Else return the complex square root</span></a>
-<a class="sourceLine" id="cb36-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb36-26" data-line-number="26">  <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb36-27" data-line-number="27">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="op">-</span>x)))</a>
-<a class="sourceLine" id="cb36-28" data-line-number="28">  }</a>
-<a class="sourceLine" id="cb36-29" data-line-number="29"></a>
-<a class="sourceLine" id="cb36-30" data-line-number="30">}</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="co">#&#39; Generalized Square Roots</span></a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb34-3" data-line-number="3"><span class="co">#&#39; \code{general_sqrt} returns the square root of any real number</span></a>
+<a class="sourceLine" id="cb34-4" data-line-number="4"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb34-5" data-line-number="5"><span class="co">#&#39; @param x A real number - integers or doubles are both acceptable.</span></a>
+<a class="sourceLine" id="cb34-6" data-line-number="6"><span class="co">#&#39; @return A complex value. If x is positive, the imaginary component is equal to 0;</span></a>
+<a class="sourceLine" id="cb34-7" data-line-number="7"><span class="co">#&#39; if x is negative, the real component is equal to 0.</span></a>
+<a class="sourceLine" id="cb34-8" data-line-number="8"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb34-9" data-line-number="9"><span class="co">#&#39; @examples</span></a>
+<a class="sourceLine" id="cb34-10" data-line-number="10"><span class="co">#&#39; general_sqrt(10)</span></a>
+<a class="sourceLine" id="cb34-11" data-line-number="11"><span class="co">#&#39; general_sqrt(-10)</span></a>
+<a class="sourceLine" id="cb34-12" data-line-number="12"><span class="co">#&#39; general_sqrt(-1)</span></a>
+<a class="sourceLine" id="cb34-13" data-line-number="13"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb34-14" data-line-number="14"><span class="co">#&#39; @export</span></a>
+<a class="sourceLine" id="cb34-15" data-line-number="15"><span class="co"># This function takes the complex square root of real numbers</span></a>
+<a class="sourceLine" id="cb34-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb34-17" data-line-number="17">general_sqrt &lt;-<span class="st"> </span><span class="cf">function</span> (x) {</a>
+<a class="sourceLine" id="cb34-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb34-19" data-line-number="19">  <span class="co"># Return the normal square root if x &gt; 0</span></a>
+<a class="sourceLine" id="cb34-20" data-line-number="20">  <span class="cf">if</span> (x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span>x <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
+<a class="sourceLine" id="cb34-21" data-line-number="21">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real=</span><span class="kw">sqrt</span>(x), <span class="dt">imaginary=</span><span class="dv">0</span>))</a>
+<a class="sourceLine" id="cb34-22" data-line-number="22">  }</a>
+<a class="sourceLine" id="cb34-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb34-24" data-line-number="24">  <span class="co"># Else return the complex square root</span></a>
+<a class="sourceLine" id="cb34-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb34-26" data-line-number="26">  <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb34-27" data-line-number="27">    <span class="kw">return</span>(<span class="kw">complex</span>(<span class="dt">real =</span> <span class="dv">0</span>, <span class="dt">imaginary =</span> <span class="kw">sqrt</span>(<span class="op">-</span>x)))</a>
+<a class="sourceLine" id="cb34-28" data-line-number="28">  }</a>
+<a class="sourceLine" id="cb34-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb34-30" data-line-number="30">}</a></code></pre></div>
 <p><img src="Images/PackageSS/gensqrtdoc.PNG" /></p>
 <p>Inside the R script, the documentation appears right above the definition of the function - this is helpful because it will help you remember to keep your documentations/functions up to date with each other. Let’s work through how this documentation was generated.</p>
 <ol style="list-style-type: decimal">
@@ -753,10 +716,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>You should describe your functions’ parameters using the ‘<span class="citation">@param</span>’ signifier. This should succintly describe the type (i.e. double, integer, character) of the parameter, as well as its function, as well as any potential default value.</p></li>
 <li><p>You should document the type of output your function returns. Is it an integer, a dataframe, a matrix? Does it depend on the input? Your documentation should answer these questions!</p></li>
 <li><p>You <em>must</em> provide examples of your function’s use. These are pretty critical, because a lot of programmers will just skip straight to the examples (and only look at the rest of the documentation if the examples are unclear).</p></li>
-<li><p>You may choose to write ‘<span class="citation">@export</span>’ at the end of your documentation block. You should only do this if you want other people to use the function that you’re exporting, because exporting it will make sure it shows up in the namespace. Most functions you write won’t be exported - for example, if you write a helper function like ‘loss’ which is only used in service of a larger function, it shouldn’t be exported (exporting too many functions ‘clutters’ the namespace). Normally, a function as simple as ‘general_sqrt’ probably wouldn’t be exported, but we have exported it for the sake of providing a simple example.</p></li>
+<li><p>You may choose to write ‘<span class="citation">@export</span>’ at the end of your documentation block. You should only do this if you want other people to use the function that you’re exporting, because exporting it will make sure it shows up in the <strong>namespace</strong>, a document that makes sure your package works in combination with other packages. For example, if your package includes data labelled ‘lm’, the namespace will prevent errors when using that data in combination with the R stats package (which has a function called ‘lm’) will <em>not</em> throw an error. The <a href="http://r-pkgs.had.co.nz/namespace.html">exact mechanics of the namespace</a> are slightly beyond the scope of this guide, but thankfully Roxygen2 will automatically generate a namespace for you when you create documentation with “<span class="citation">@export</span>” tags.</p></li>
 </ol>
+<p>Note that most functions you write won’t be exported - for example, if you write a helper function like ‘loss’ which is only used in service of a larger function, it shouldn’t be exported (exporting too many functions ‘clutters’ the namespace).</p>
 <p>Once you’ve written all your documentation, it’s fairly simple to check what it looks like. Simply run the following function:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">document</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">document</span>()</a></code></pre></div>
 <p>which will automatically generate your documentation. Then, if you’ve documented a function, you can type ?[function name] into the console, and the documentation should automatically pop up!</p>
 <p>After documenting your package, you can also click the ‘/man’ folder to inspect the documentation html files Roxygen2 generates, but it probably won’t be more informative than simply typing ?[function name] into the console.</p>
 </div>
@@ -782,7 +746,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Documentation is useful, but not necessarily a comprehensive guide to your package. You may want to include details about your implementation, extra examples, and more organization than your documentation provides, which is exactly what vignettes are for.</p>
 <p><strong>Vignettes</strong> are basically articles which motivate and describe your packages. They are generally written in RMarkdown, which allows you to mix code, mathematical equations, and formatted text with ease. If you are using RStudio, then writing vignettes will be very easy, because RMarkdown works automatically with RStudio. On the other hand, if you don’t have RStudio, you will need to (i) run the ‘install.packages(“rmarkdown”)’ command, and (ii) install <a href="http://pandoc.org/installing.html">pandoc</a>.</p>
 <p>To write a vignette, start by running the devtools function:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">use_vignette</span>(<span class="st">&#39;vignete-name&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">use_vignette</span>(<span class="st">&#39;vignete-name&#39;</span>)</a></code></pre></div>
 <p>This function will create a ‘vignettes’ subdirectory and populate it with a file based on the name you specified. The file should look something like this:</p>
 <p><img src="Images/PackageSS/vignette1.PNG" /></p>
 <p>The top of the file, between the two lines of dashes, is written in the YAML language. It’s simply a convenient way to specify metadata about a vignette, and you should fill in the title and author fields.</p>
@@ -800,7 +764,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p><img src="Images/PackageSS/vignettecode.PNG" /></p>
 <p>Once you’ve modified your vignette, you can <em>knit</em> it into a beautiful HTML by running the following function in the console:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">rmarkdown<span class="op">::</span><span class="kw">render</span>(<span class="st">&#39;path/to/rmarkdown/file.Rmd&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1">rmarkdown<span class="op">::</span><span class="kw">render</span>(<span class="st">&#39;path/to/rmarkdown/file.Rmd&#39;</span>)</a></code></pre></div>
 <p>Alternatively, you can simply click the Knit button if you’re working in RStudio.</p>
 <p>If you do choose to write vignettes, remember that it’s critical to motivative <em>why</em> you wrote your package in the first place. Additionally, you should structure the vignette so that it gives users an impression of the overarching structure of the package itself (i.e. group and organize your functions!).</p>
 </div>
@@ -811,72 +775,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">2.8.1</span> Including data which should be available to users</h3>
 <p>All of the data you want to be available to users should be saved in a folder called “data” inside your project. The way to do this is to write and run a script which loads your data into R and then uses the devtools function “use_data” to save it to a path inside ‘data.’ Even if you do not already have a folder called ‘data’ in your package, the use_data function will make it for you. Note that for this to work, your working directory must be set to the package you’re writing, otherwise devtools won’t know where to put your data.</p>
 <p>For example, when documenting the scalep function, one might want to include data as an example of a way to use scalep. To this end, I’ve generated a (totally fake) csv file which lists 100 people’s income and luxury spending, and has saved it to the</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">luxspending &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;C:/Users/name/Documents/R/datapath.csv&#39;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">use_data</span>(luxspending)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">luxspending &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;C:/Users/name/Documents/R/datapath.csv&#39;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">use_data</span>(luxspending)</a></code></pre></div>
 <p>Data in your ‘data’ folder will effectively always be exported, so you always must document it. To document data, you should create an R Script in your ‘R’ directory called [‘data.R’] and use Roxygen2 to document the data similarly to the way you’d document a function. For example, one might document the aforementioned data in the following way:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co">#&#39; Luxury spending of 100 individuals</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="co">#&#39; This dataset lists the net incomes and the luxury spending</span></a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="co">#&#39; of 100 individuals.</span></a>
-<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="co">#&#39;</span></a>
-<a class="sourceLine" id="cb41-6" data-line-number="6"><span class="co">#&#39; @format A data frame with 100 rows and 2 columns.</span></a>
-<a class="sourceLine" id="cb41-7" data-line-number="7"><span class="co">#&#39; \describe{</span></a>
-<a class="sourceLine" id="cb41-8" data-line-number="8"><span class="co">#&#39;   \item{Income}{Total Income, in USD}</span></a>
-<a class="sourceLine" id="cb41-9" data-line-number="9"><span class="co">#&#39;   \item{Luxury_goods}{Spending on luxury goods, in USD}</span></a>
-<a class="sourceLine" id="cb41-10" data-line-number="10"><span class="co">#&#39;}</span></a>
-<a class="sourceLine" id="cb41-11" data-line-number="11"><span class="co">#&#39; @source This dataset was randomly generated</span></a>
-<a class="sourceLine" id="cb41-12" data-line-number="12"><span class="co">#&#39; and is intended only to be used as an example for package</span></a>
-<a class="sourceLine" id="cb41-13" data-line-number="13"><span class="co">#&#39; development and the scalep function.</span></a>
-<a class="sourceLine" id="cb41-14" data-line-number="14"><span class="st">&quot;luxspending&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co">#&#39; Luxury spending of 100 individuals</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="co">#&#39; This dataset lists the net incomes and the luxury spending</span></a>
+<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="co">#&#39; of 100 individuals.</span></a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="co">#&#39;</span></a>
+<a class="sourceLine" id="cb39-6" data-line-number="6"><span class="co">#&#39; @format A data frame with 100 rows and 2 columns.</span></a>
+<a class="sourceLine" id="cb39-7" data-line-number="7"><span class="co">#&#39; \describe{</span></a>
+<a class="sourceLine" id="cb39-8" data-line-number="8"><span class="co">#&#39;   \item{Income}{Total Income, in USD}</span></a>
+<a class="sourceLine" id="cb39-9" data-line-number="9"><span class="co">#&#39;   \item{Luxury_goods}{Spending on luxury goods, in USD}</span></a>
+<a class="sourceLine" id="cb39-10" data-line-number="10"><span class="co">#&#39;}</span></a>
+<a class="sourceLine" id="cb39-11" data-line-number="11"><span class="co">#&#39; @source This dataset was randomly generated</span></a>
+<a class="sourceLine" id="cb39-12" data-line-number="12"><span class="co">#&#39; and is intended only to be used as an example for package</span></a>
+<a class="sourceLine" id="cb39-13" data-line-number="13"><span class="co">#&#39; development and the scalep function.</span></a>
+<a class="sourceLine" id="cb39-14" data-line-number="14"><span class="st">&quot;luxspending&quot;</span></a></code></pre></div>
 <p>This should all look pretty similar to documenting functions. Note that ‘<span class="citation">@format</span>’ is a tag which will allow you to describe the structure of a dataset, and it’s good practice to list what each column measures in this section. The ‘<span class="citation">@source</span>’ section describes where the data came from. Never write ‘<span class="citation">@export</span>’ in this section, as data here is already automatically exported.</p>
 </div>
 <div id="including-data-for-your-functions" class="section level3">
 <h3><span class="header-section-number">2.8.2</span> Including data for your functions</h3>
 <p>Some functions may rely on a large, predefined set of coefficients or other inputs which need to be included in the package. However, users shouldn’t generally have access to such data because otherwise they might accidentally radically change the way your function works. It’s best to put such data in ‘R/sysdata.rda’, because then users won’t easily be able to access and accidentally modify it. As before, the way to include data in this way is to write a script which loads the data into R and then use the ‘use_data’ function to save it, but you should also include a parameter ‘interior = TRUE’ in the function call to let R know that this is interior, not exterior, data. For example, if a function depends on a matrix called “coefficients”, one might run the following code:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">coefficients &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;C:/Users/name/Documents/R/coefs.csv&#39;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)</a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">use_data</span>(coefficients, <span class="dt">interior =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">coefficients &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&#39;C:/Users/name/Documents/R/coefs.csv&#39;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&#39;,&#39;</span>)</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">use_data</span>(coefficients, <span class="dt">interior =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Data in ‘R/sysdata.rda’ is never exported, so there’s no need to document it.</p>
 </div>
 </div>
-<div id="namespace" class="section level2">
-<h2><span class="header-section-number">2.9</span> Namespace</h2>
-<p>The namespace is a bit more complicated than the other parts of the package structure. The purpose of the namespace is make sure your package works in combination with other packages. For example, if your package includes some data labelled ‘lm’, a good namespace will ensure that using that data in conjunction with the R stats package (which has a function called ‘lm’) will <em>not</em> throw an error. How exactly the namespace does this is a bit complicated and beyond the scope of this guide, so if you’re dying for more specifics, you should <a href="http://r-pkgs.had.co.nz/namespace.html">read through this wonderful page</a>. Thankfully, Roxygen2 will automatically generate a namespace for you when you create documentation with “<span class="citation">@import</span>” and “<span class="citation">@export</span>” tags, so you don’t need to worry about this too much.</p>
-<p>Remember: the namespace will help your package play nice with others in the event of name conflicts, but it’s still better to name your functions so that the they don’t overlap with names of other commonly used functions if possible.</p>
-</div>
 <div id="releasing-your-package" class="section level2">
-<h2><span class="header-section-number">2.10</span> Releasing Your Package</h2>
+<h2><span class="header-section-number">2.9</span> Releasing Your Package</h2>
 <p>You’re almost done at this point! You’ve written your functions, modified the description, documented your functions, presumably exported some of them, and hopefully tested all of them; you’re now ready to <em>build</em>, <em>release</em>, and <em>publicize</em> your package.</p>
 <div id="building" class="section level3">
-<h3><span class="header-section-number">2.10.1</span> Building</h3>
+<h3><span class="header-section-number">2.9.1</span> Building</h3>
 <p>Building your package means bundling it into a format that is easy to distribute and easy for users to install; there are a two main ways to do this.</p>
 <div id="building-.tar.gz-files" class="section level4">
-<h4><span class="header-section-number">2.10.1.1</span> Building .tar.gz files</h4>
+<h4><span class="header-section-number">2.9.1.1</span> Building .tar.gz files</h4>
 <p>One of the most common ways to build your package is to zip it package as either .tar.gz file. Devtools will do this for you if you run the following command:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">build</span>(<span class="dt">binary =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">build</span>(<span class="dt">binary =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Tar.gz files are useful because anyone who has a working R development environment can install and unzip your package, regardless of their operating system.</p>
 </div>
 <div id="building-precompiled-binaries" class="section level4">
-<h4><span class="header-section-number">2.10.1.2</span> Building precompiled binaries</h4>
+<h4><span class="header-section-number">2.9.1.2</span> Building precompiled binaries</h4>
 <p>Another way to build your package is as a precompiled binary file. Precompiled binaries are useful because unlike Tar.gz files, they do not require a development environment to install. However, they are platform specific: a precompiled binary built by a Windows machine can’t be installed on Mac machine. There are advantages to precompiled binaries, but most likely, you’ll want to use a Tar.gz file instead. if you do want to build a binary, you can just change an argument of devtools::build:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">build</span>(<span class="dt">binary =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">build</span>(<span class="dt">binary =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="releasing" class="section level3">
-<h3><span class="header-section-number">2.10.2</span> Releasing</h3>
+<h3><span class="header-section-number">2.9.2</span> Releasing</h3>
 <p>Once you’ve built your package, there’s a couple of ways to release it to the broader R community.</p>
 <div id="pushing-to-github" class="section level4">
-<h4><span class="header-section-number">2.10.2.1</span> Pushing to GitHub</h4>
+<h4><span class="header-section-number">2.9.2.1</span> Pushing to GitHub</h4>
 <p>The easiest way to publish your package is to simply <a href=".\version-control">push it to GitHub</a>, (we’ll discuss how to do this later). The pros of this approach are that it makes it very easy for users to download your package - they can literally do it in one line. Additionally, Github offers free services <a href="https://pages.github.com/">to host a website for your package and its documentation</a>, and most importantly, it’s very easy for <strong>you</strong> to publish your package this way. Thus, pushing to Github is sort of the “default” way to publish a smaller package.</p>
 </div>
 <div id="cran" class="section level4">
-<h4><span class="header-section-number">2.10.2.2</span> CRAN</h4>
+<h4><span class="header-section-number">2.9.2.2</span> CRAN</h4>
 <p>On the other hand, if you’ve written a larger package which you would like to distribute to the entire R community, you might consider submitting it to <a href="https://cran.r-project.org/">CRAN</a>, the Comprehensive R Archive Network. CRAN is basically the official package authority designated by the R community, and successfully adding your package to CRAN will make it more legitimate as well as easier for R users to find and install.</p>
 <p>The actual act of submitting to CRAN seems rather simple: you need to simply build your package into a .tar.gz file and submit the bundled file to CRAN <a href="https://cran.r-project.org/submit.html">here</a>, along with a couple of comments. However, in actuality, CRAN has very high standards for packages, so it can be rather tricky to get a package accepted. CRAN’s specific standards are a bit beyond the scope of the current iteration of this guide, but if you decide you want to publish a package on CRAN, you should read <a href="http://r-pkgs.had.co.nz/release.html">Hadley Wickham’s advice on the subject</a> <strong>very carefully.</strong></p>
 <p><a href="http://r-pkgs.had.co.nz/release.html" class="uri">http://r-pkgs.had.co.nz/release.html</a></p>
 </div>
 </div>
 <div id="publicizing" class="section level3">
-<h3><span class="header-section-number">2.10.3</span> Publicizing</h3>
+<h3><span class="header-section-number">2.9.3</span> Publicizing</h3>
 <p>Once you’ve released your package either on Github or perhaps on CRAN, you should publicize it! You can of course publicize it any way you choose, but there are at least two things you should consider doing.</p>
 <ol style="list-style-type: decimal">
 <li>Tweet about your package using the #rstats hashtag, which reaches a substantial portion of the R community.</li>
@@ -886,7 +845,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div id="tips-and-tricks-1" class="section level2">
-<h2><span class="header-section-number">2.11</span> Tips and Tricks</h2>
+<h2><span class="header-section-number">2.10</span> Tips and Tricks</h2>
 <p>First, there’s a wonderful cheat sheet for package development linked <a href="https://www.rstudio.com/wp-content/uploads/2015/06/devtools-cheatsheet.pdf">here</a>.</p>
 <p>Second, if you’re having trouble, you can always just reference stackexchange.</p>
 
